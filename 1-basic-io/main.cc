@@ -43,9 +43,9 @@ int main() {
   cin >> real;
   cin >> integer;
   cout << "The real is : ";
-  cout << right << setw(13) << real << endl;
+  cout << right << setfill('.') << setw(13) << real << endl;
   cout << "The integer is : ";
-  cout << right << setw(10) << integer << endl;
+  cout << right << setfill('.') << setw(10) << integer << endl;
   cout << endl;
 
   cout << "Enter a character : ";
@@ -65,6 +65,38 @@ int main() {
   cout << "You entered '" << integer << "' and '" << word << "'." << endl;
   cout << endl;
 
+  cout << "Enter a character and a word : ";
+  cin >> letter;
+  cin >> word;
+  cout << "You entered the string \"" << word;
+  cout << "\" and the character '" << letter << "'." << endl;
+  cout << endl;
 
+  cout << "Enter a word and real number : ";
+  cin >> word;
+  cin >> real;
+  cout << "You entered \"" << word << "\" and \"" << real << "\"." << endl;
+  cout << endl; 
+
+  cout << "Enter a text-line : ";
+  cin.ignore(1, '\n');
+  getline(cin, word);
+  cout << "You entered : \"" << word << "\"" << endl;
+  cout << endl;
+
+  cout << "Enter a second line of text : ";
+  getline(cin, word);
+  cout << "You entered : \"" << word << "\"" << endl;
+  cout << endl;
+
+  cout << "Enter three words : ";
+  cin >> word;
+  cout << "You entered : '" << word << " ";
+  cin >> word;
+  cout << word << " ";
+  cin >> word;
+  cout << word << "'";
+  cout << endl;
+  
   return 0;
 }

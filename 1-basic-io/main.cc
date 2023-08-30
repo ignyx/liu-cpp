@@ -1,3 +1,12 @@
+/*
+  File: main.cc
+  Authors: Geoffroy Renaut & Paul Alnet
+  Created: 30/08/2023
+  Course : TDDE18-2023-1
+  Description: Basic IO practice.
+  Reads and echos different values from stdin and stdout.
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <string>

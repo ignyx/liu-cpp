@@ -27,6 +27,7 @@ int main() {
   cout << endl;
 
   cout << "Enter four integers : ";
+  cin.ignore(1000, '\n');
   cin >> integer;
   cout << "You entered : ";
   cout << integer << " ";
@@ -40,6 +41,7 @@ int main() {
   cout << endl;
 
   cout << "Enter one integer and one real number : ";
+  cin.ignore(1000, '\n');
   cin >> integer;
   cin >> real;
   cout << "The real is : ";
@@ -49,6 +51,7 @@ int main() {
   cout << endl;
 
   cout << "Enter one real and one integer number : ";
+  cin.ignore(1000, '\n');
   cin >> real;
   cin >> integer;
   cout << "The real is : ";
@@ -58,23 +61,27 @@ int main() {
   cout << endl;
 
   cout << "Enter a character : ";
+  cin.ignore(1000, '\n');
   cin >> letter;
   cout << "You entered : " << letter << endl;
   cout << endl;
 
   cout << "Enter a word : ";
+  cin.ignore(1000, '\n');
   cin >> word;
   cout << "The word '" << word << "' has " << word.size() << " character(s).";
   cout << endl;
   cout << endl;
 
   cout << "Enter an integer and a word : ";
+  cin.ignore(1000, '\n');
   cin >> integer;
   cin >> word;
   cout << "You entered '" << integer << "' and '" << word << "'." << endl;
   cout << endl;
 
   cout << "Enter a character and a word : ";
+  cin.ignore(1000, '\n');
   cin >> letter;
   cin >> word;
   cout << "You entered the string \"" << word;
@@ -82,23 +89,26 @@ int main() {
   cout << endl;
 
   cout << "Enter a word and real number : ";
+  cin.ignore(1000, '\n');
   cin >> word;
   cin >> real;
   cout << "You entered \"" << word << "\" and \"" << real << "\"." << endl;
   cout << endl; 
 
   cout << "Enter a text-line : ";
-  cin.ignore(1, '\n');
+  cin.ignore(1000, '\n');
   getline(cin, word);
   cout << "You entered : \"" << word << "\"" << endl;
   cout << endl;
 
   cout << "Enter a second line of text : ";
+  // no need to ignore as the previous entry consumes an entire line
   getline(cin, word);
   cout << "You entered : \"" << word << "\"" << endl;
   cout << endl;
 
   cout << "Enter three words : ";
+  // no need to ignore for the same reason
   cin >> word;
   cout << "You entered : '" << word << " ";
   cin >> word;

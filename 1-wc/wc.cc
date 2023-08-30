@@ -1,3 +1,13 @@
+/*
+  File: wc.cc
+  Authors: Geoffroy Renaut & Paul Alnet
+  Created: 30/08/2023
+  Course : TDDE18-2023-1
+  Description: Wordcount
+    Iters through a text file and outputs the number of words, shortest and
+    longest words as well as the average length.
+*/
+
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -5,22 +15,23 @@
 
 using namespace std;
 
-// const string file{"lorem.txt"};
-const string file{"empty.txt"};
+const string file{"lorem.txt"};
+// const string file{"empty.txt"};
 // const string file{"wc.cc"};
 
 int main() {
   ifstream in{file};
   string word{};
+
   int count{0};
   int totalWordLength{0};
   string shortestWord{""};
   string longestWord{""};
 
   while (in >> word) {
-    // cout << word;
     count++;
     totalWordLength += word.size();
+
     if (word.size() < shortestWord.size() || shortestWord.size() == 0)
       shortestWord = word;
     longestWord = word.size() > longestWord.size() ? word : longestWord;
@@ -43,7 +54,6 @@ int main() {
     // Ensure displayed average has 2 decimals
     cout << fixed << setprecision(2);
     cout << "The average length was " << average << " character(s)." << endl;
-
 
     return 0;
   }

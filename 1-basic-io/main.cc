@@ -40,6 +40,10 @@ int main() {
   cout << endl;
   cout << endl;
 
+  // Set precision for displaying real numbers
+  // Otherwise 2 is displayed as 2 and not 2.000
+  cout << fixed << setprecision(3);
+
   cout << "Enter one integer and one real number : ";
   cin.ignore(1000, '\n');
   cin >> integer;

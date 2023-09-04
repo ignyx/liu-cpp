@@ -1,9 +1,9 @@
-#include <iostream> 
-#include <string> 
+#include <iostream>
+#include <string>
 #include<iomanip>
 using namespace std;
 
-int main() { 
+int main() {
 
     float maxValue;
     float minValue;
@@ -12,9 +12,9 @@ int main() {
     float tax;
     float priceWithTax;
     bool validValues = false;
-    float taxPercentage; 
+    float taxPercentage;
     int i = 0;
-   
+
     cout << setfill('-') << left <<setw(50)<< "IMPUT PART" << endl;
     cout << " " << endl;
 
@@ -35,9 +35,9 @@ int main() {
             validValues = true;
         }
     }while (validValues == false);
-   
+
     //Ask for the stride until the user give a correct input
-    do{  
+    do{
         validValues = false;
         cout << " Enter stride : " << endl;
         cin >> stride;
@@ -49,9 +49,9 @@ int main() {
             validValues = true;
         }
     }while (validValues == false);
-    
+
    //Ask for the tax rate until the user give a correct input
-   do{  
+   do{
         validValues = false;
         cout << "Select tax percentage : " << endl;
         cin >> taxPercentage;
@@ -70,11 +70,11 @@ int main() {
 
     cout << " " << endl;
     cout   << left <<setw(15)<< "PRICE " <<setw(15)<< "TAX " <<setw(15)<<"PRICE WITH TAX" << endl;
-    
+
     //calculate the new price until it achieve maxValue - stride
-    //could be replaced by a simple while 
+    //could be replaced by a simple while
     price = minValue;
-    do{ 
+    do{
         price = minValue + i*stride;
         tax = (taxPercentage*price)/100;
         priceWithTax = tax + price;

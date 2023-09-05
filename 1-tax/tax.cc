@@ -11,14 +11,14 @@ int main() {
   float price;
   float tax;
   float priceWithTax;
-  bool validValues = false;
+  bool validValues{false};
   float taxPercentage;
-  int i = 0;
+  int i{0};
 
   cout << setfill('-') << left << setw(50) << "INPUT PART" << endl;
   cout << " " << endl;
 
-  // Ask for the min and max values until the user gives a correct input
+  // Ask for the min and max values until the user provides correct input
   do {
     cout << " Max and Min values : " << endl;
     cin >> maxValue;
@@ -34,7 +34,7 @@ int main() {
     }
   } while (validValues == false);
 
-  // Ask for the stride until the user give a correct input
+  // Ask for the stride until the user provides correct input
   do {
     validValues = false;
     cout << " Enter stride : " << endl;
@@ -47,7 +47,7 @@ int main() {
     }
   } while (validValues == false);
 
-  // Ask for the tax rate until the user give a correct input
+  // Ask for the tax rate until the user provides correct input
   do {
     validValues = false;
     cout << "Select tax percentage : " << endl;
@@ -68,7 +68,7 @@ int main() {
   cout << left << setw(15) << "PRICE " << setw(15) << "TAX " << setw(15)
        << "PRICE WITH TAX" << endl;
 
-  // calculate the new price until it achieve maxValue - stride
+  // calculate the new price until it reaches maxValue - stride
   // could be replaced by a simple while
   price = minValue;
   do {

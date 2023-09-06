@@ -37,9 +37,9 @@ int main() {
     cin.clear();
     cin.ignore(100000, '\n');
     if (maxValue < 0 or minValue < 0) {
-      cout << "Please select positive values" << endl;
+      cout << "Please enter non-negative values" << endl;
     } else if (minValue > maxValue) {
-      cout << "Please select a minimum value lower than a max value" << endl;
+      cout << "Please enter a minimum value lower than the max value" << endl;
     } else {
       validValues = true;
     }
@@ -53,7 +53,7 @@ int main() {
     cin.clear();
     cin.ignore(100000, '\n');
     if (stride <= 0.01) {
-      cout << "Please select values to 0.01" << endl;
+      cout << "Please enter a stride greater or equal to 0.01" << endl;
     } else {
       validValues = true;
     }

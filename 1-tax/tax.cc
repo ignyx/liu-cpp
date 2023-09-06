@@ -4,7 +4,6 @@
 using namespace std;
 
 int main() {
-
   float maxValue;
   float minValue;
   float stride;
@@ -18,12 +17,13 @@ int main() {
   cout << setfill('-') << left << setw(50) << "INPUT PART" << endl;
   cout << " " << endl;
 
-  // Ask for the min and max values until the user provides correct input
+  // Ask for the min and max values until the user provides a correct input
   do {
-    cout << " Max and Min values : " << endl;
-    cin >> maxValue;
-    cin.ignore(100000, ' ');
+    cout << " Enter first price : " << endl;
     cin >> minValue;
+    cin.ignore(100000, '\n');
+    cout << " Enter last price : " << endl;
+    cin >> maxValue;
     cin.ignore(100000, '\n');
     if (maxValue < 0 or minValue < 0) {
       cout << "Please select positive values" << endl;
@@ -34,7 +34,7 @@ int main() {
     }
   } while (validValues == false);
 
-  // Ask for the stride until the user provides correct input
+  // Ask for the stride until the user provides a correct input
   do {
     validValues = false;
     cout << " Enter stride : " << endl;
@@ -47,7 +47,7 @@ int main() {
     }
   } while (validValues == false);
 
-  // Ask for the tax rate until the user provides correct input
+  // Ask for the tax rate until the user provides a correct input
   do {
     validValues = false;
     cout << "Select tax percentage : " << endl;
@@ -65,20 +65,20 @@ int main() {
   cout << setfill('-') << left << setw(50) << "TAX TABLE" << endl;
 
   cout << " " << endl;
-  cout << left << setw(15) << "PRICE " << setw(15) << "TAX " << setw(15)
-       << "PRICE WITH TAX" << endl;
+  cout << setfill(' ') << right << setw(12) << "PRICE" << setw(12) << "TAX"
+       << setw(20) << "PRICE WITH TAX" << endl;
 
-  // calculate the new price until it reaches maxValue - stride
+  // calculate the new price until it achieve maxValue - stride
   // could be replaced by a simple while
   price = minValue;
+  cout << fixed << setprecision(2);
   do {
     price = minValue + i * stride;
     tax = (taxPercentage * price) / 100;
     priceWithTax = tax + price;
     i++;
-    cout << setfill(' ') << left << setw(5) << price << setw(10) << " "
-         << setw(5) << tax << setw(10) << " " << setw(5) << priceWithTax
-         << endl;
+    cout << setfill(' ') << right << setw(12) << price << setw(12) << tax
+         << setw(12) << priceWithTax << endl;
   } while (price < (maxValue - stride));
 
   return 0;

@@ -21,9 +21,11 @@ int main() {
   do {
     cout << " Enter first price : " << endl;
     cin >> minValue;
+    cin.clear();
     cin.ignore(100000, '\n');
     cout << " Enter last price : " << endl;
     cin >> maxValue;
+    cin.clear();
     cin.ignore(100000, '\n');
     if (maxValue < 0 or minValue < 0) {
       cout << "Please select positive values" << endl;
@@ -39,6 +41,7 @@ int main() {
     validValues = false;
     cout << " Enter stride : " << endl;
     cin >> stride;
+    cin.clear();
     cin.ignore(100000, '\n');
     if (stride <= 0.01) {
       cout << "Please select values to 0.01" << endl;
@@ -52,6 +55,7 @@ int main() {
     validValues = false;
     cout << "Select tax percentage : " << endl;
     cin >> taxPercentage;
+    cin.clear();
     cin.ignore(100000, '\n');
     if (taxPercentage <= 0 or taxPercentage >= 100) {
       cout << "Please select values between 0 and 100" << endl;

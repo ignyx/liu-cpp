@@ -52,7 +52,7 @@ int main() {
     cin >> stride;
     cin.clear();
     cin.ignore(100000, '\n');
-    if (stride <= 0.01) {
+    if (stride * 100 < 1) {
       cout << "Please enter a stride greater or equal to 0.01" << endl;
     } else {
       validValues = true;

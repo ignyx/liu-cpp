@@ -9,14 +9,15 @@
 */
 
 #include <fstream>
-#include <string>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-const string file{"lorem.txt"};
+// const string file{"lorem.txt"};
 // const string file{"empty.txt"};
+const string file{"single.txt"};
 // const string file{"wc.cc"};
 
 int main() {

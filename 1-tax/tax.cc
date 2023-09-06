@@ -1,3 +1,12 @@
+/*
+  File: tax.cc
+  Authors: Geoffroy Renaut & Paul Alnet
+  Created: 30/08/2023
+  Course : TDDE18-2023-1
+  Description: Tax
+    Calculates prices and tax from user input
+*/
+
 #include <iomanip>
 #include <iostream>
 #include <string>

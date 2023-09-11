@@ -26,28 +26,38 @@ int main() {
   cout << "INPUT PART\n"
        << "==========" << endl;
 
-  // Ask for the min and max values until the user provides a correct input
+  // Ask for the min value until the user provides a correct input
   do {
     cout << " Enter first price : " << endl;
     cin >> minValue;
     cin.clear();
     cin.ignore(100000, '\n');
+    if (minValue < 0) {
+      cout << "Please enter a non-negative min value" << endl;
+    } else {
+      validValues = true;
+    }
+  } while (validValues == false);
+
+  // Ask for the max value until the user provides a correct input
+  validValues = false;
+  do {
     cout << " Enter last price : " << endl;
     cin >> maxValue;
     cin.clear();
     cin.ignore(100000, '\n');
-    if (maxValue < 0 or minValue < 0) {
-      cout << "Please enter non-negative values" << endl;
+    if (maxValue < 0) {
+      cout << "Please enter non-negative max value" << endl;
     } else if (minValue > maxValue) {
-      cout << "Please enter a minimum value lower than the max value" << endl;
+      cout << "Please enter a max value greater than the min value" << endl;
     } else {
       validValues = true;
     }
   } while (validValues == false);
 
   // Ask for the stride until the user provides a correct input
+  validValues = false;
   do {
-    validValues = false;
     cout << " Enter stride : " << endl;
     cin >> stride;
     cin.clear();
@@ -60,8 +70,8 @@ int main() {
   } while (validValues == false);
 
   // Ask for the tax rate until the user provides a correct input
+  validValues = false;
   do {
-    validValues = false;
     cout << "Select tax percentage : " << endl;
     cin >> taxPercentage;
     cin.clear();

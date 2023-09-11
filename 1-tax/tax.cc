@@ -23,8 +23,8 @@ int main() {
   float taxPercentage;
   int i{0};
 
-  cout << setfill('-') << left << setw(50) << "INPUT PART" << endl;
-  cout << " " << endl;
+  cout << "INPUT PART\n"
+       << "==========" << endl;
 
   // Ask for the min and max values until the user provides a correct input
   do {
@@ -74,12 +74,12 @@ int main() {
   } while (validValues == false);
 
   // display the new mode
-  cout << " " << endl;
-  cout << setfill('-') << left << setw(50) << "TAX TABLE" << endl;
-
-  cout << " " << endl;
-  cout << setfill(' ') << right << setw(12) << "PRICE" << setw(12) << "TAX"
-       << setw(20) << "PRICE WITH TAX" << endl;
+  cout << "\n"
+       << "TAX TABLE\n"
+       << "=========\n"
+       << setfill(' ') << right << setw(12) << "PRICE" << setw(12) << "TAX"
+       << setw(20) << "PRICE WITH TAX\n"
+       << setfill('-') << setw(44) << " " << endl;
 
   // calculate the new price until it achieve maxValue - stride
   // could be replaced by a simple while

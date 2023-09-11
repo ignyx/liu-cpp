@@ -15,9 +15,9 @@
 
 using namespace std;
 
-// const string file{"lorem.txt"};
+const string file{"lorem.txt"};
 // const string file{"empty.txt"};
-const string file{"single.txt"};
+// const string file{"single.txt"};
 // const string file{"wc.cc"};
 
 int main() {
@@ -42,19 +42,22 @@ int main() {
     cout << "WARNING: file is empty" << endl;
     return 1;
   } else {
-    cout << "There are " << count << " words in the file." << endl;
-
-    cout << "The longest word was \"" << longestWord << "\" with ";
-    cout << longestWord.size() << " character(s)." << endl;
-
-    cout << "The shortest word was \"" << shortestWord << "\" with ";
-    cout << shortestWord.size() << " character(s)." << endl;
-
     // Ensure average is a double
     const double average = static_cast<double>(totalWordLength) / count;
-    // Ensure displayed average has 2 decimals
-    cout << fixed << setprecision(2);
-    cout << "The average length was " << average << " character(s)." << endl;
+
+    cout << "There are " << count << " words in the file.\n"
+
+         << "The longest word was \"" << longestWord << "\" with "
+         << longestWord.size() << " character(s).\n"
+
+         << "The shortest word was \"" << shortestWord << "\" with "
+         << shortestWord.size()
+         << " character(s).\n"
+
+         // Ensure displayed average has 2 decimals
+         << fixed << setprecision(2)
+
+         << "The average length was " << average << " character(s)." << endl;
 
     return 0;
   }

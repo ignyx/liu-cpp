@@ -21,7 +21,6 @@ int main() {
   float priceWithTax;
   bool validValues{false};
   float taxPercentage;
-  int i{0};
 
   cout << "INPUT PART\n"
        << "==========" << endl;
@@ -91,18 +90,17 @@ int main() {
        << setw(20) << "PRICE WITH TAX\n"
        << setfill('-') << setw(44) << " " << endl;
 
-  // calculate the new price until it achieve maxValue - stride
-  // could be replaced by a simple while
-  price = minValue;
+  // format table
   cout << fixed << setprecision(2) << setfill(' ');
-  do {
+
+  // output prices
+  for (int i = 0; i <= (maxValue - minValue) / stride; i++) {
     price = minValue + i * stride;
     tax = (taxPercentage * price) / 100;
     priceWithTax = tax + price;
-    i++;
     cout << setw(12) << price << setw(12) << tax << setw(12) << priceWithTax
          << "\n";
-  } while (price < (maxValue - stride));
+  }
   cout << flush;
 
   return 0;

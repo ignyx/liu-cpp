@@ -84,15 +84,16 @@ int main() {
   // calculate the new price until it achieve maxValue - stride
   // could be replaced by a simple while
   price = minValue;
-  cout << fixed << setprecision(2);
+  cout << fixed << setprecision(2) << setfill(' ');
   do {
     price = minValue + i * stride;
     tax = (taxPercentage * price) / 100;
     priceWithTax = tax + price;
     i++;
-    cout << setfill(' ') << right << setw(12) << price << setw(12) << tax
-         << setw(12) << priceWithTax << endl;
+    cout << setw(12) << price << setw(12) << tax << setw(12) << priceWithTax
+         << "\n";
   } while (price < (maxValue - stride));
+  cout << flush;
 
   return 0;
 }

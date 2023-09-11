@@ -38,21 +38,20 @@ int main() {
   // Otherwise 2 is displayed as 2 and not 2.000
   cout << fixed << setprecision(3);
 
-  cout << "Enter one integer and one real number : ";
+  cout << "Enter one integer and one real number : " << right;
   cin.ignore(1000, '\n');
   cin >> integer;
   cin >> real;
-  cout << "The real is : " << right << setw(13) << real << "\n"
-       << "The integer is : " << right << setw(10) << integer << "\n"
+  cout << "The real is : " << setw(13) << real << "\n"
+       << "The integer is : " << setw(10) << integer << "\n"
        << endl;
 
   cout << "Enter one real and one integer number : ";
   cin.ignore(1000, '\n');
   cin >> real;
   cin >> integer;
-  cout << "The real is : " << right << setfill('.') << setw(13) << real << "\n"
-       << "The integer is : " << right << setfill('.') << setw(10) << integer
-       << "\n"
+  cout << "The real is : " << setfill('.') << setw(13) << real << "\n"
+       << "The integer is : " << setw(10) << integer << "\n"
        << endl;
 
   cout << "Enter a character : ";

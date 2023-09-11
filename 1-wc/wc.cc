@@ -29,11 +29,19 @@ int main() {
   string shortestWord{""};
   string longestWord{""};
 
+  // handler initial edge case
+  if (in >> word) {
+    count++;
+    totalWordLength += word.size();
+    shortestWord = word;
+    longestWord = word;
+  }
+
   while (in >> word) {
     count++;
     totalWordLength += word.size();
 
-    if (word.size() < shortestWord.size() || shortestWord.size() == 0)
+    if (word.size() < shortestWord.size())
       shortestWord = word;
     longestWord = word.size() > longestWord.size() ? word : longestWord;
   }

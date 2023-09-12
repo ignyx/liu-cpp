@@ -7,9 +7,9 @@
 enum format { USA, EUROPEAN };
 
 struct Time {
-  int seconds;
-  int minutes;
-  int hours;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
 };
 
 Time operator+(const Time &givenTime1, const Time &givenTime2);

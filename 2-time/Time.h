@@ -26,6 +26,8 @@ Time operator--(Time& givenTime, int);
 
 bool operator==(const Time &givenTime1, const Time &givenTime2);
 
+bool operator!=(const Time& givenTime1, const Time& givenTime2);
+
 bool operator<(const Time &givenTime1, const Time &givenTime2);
 
 bool operator<=(const Time &givenTime1, const Time &givenTime2);

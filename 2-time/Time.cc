@@ -5,14 +5,6 @@
 
 using namespace std;
 
-enum format { USA, EUROPEAN };
-
-struct Time {
-  int seconds;
-  int minutes;
-  int hours;
-};
-
 Time operator+(const Time &givenTime1, const Time &givenTime2) {
   Time newTime;
   int rest;
@@ -164,11 +156,4 @@ string to_string(Time const &givenTime, format timeFormat) {
 ostream &operator<<(ostream &os, Time const &givenTime) {
   os << to_string(givenTime, EUROPEAN) << endl;
   return os;
-}
-
-int main() {
-  Time temps1{1, 1, 1};
-  temps1 = temps1 - 2;
-  cout << temps1 << endl;
-  return 1;
 }

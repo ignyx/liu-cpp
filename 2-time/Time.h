@@ -1,5 +1,8 @@
-#ifdef TEST_H
-#define TEST_H
+#ifndef TIME_H
+#define TIME_H
+
+#include <iostream>
+#include <string>
 
 enum format { USA, EUROPEAN };
 
@@ -31,8 +34,8 @@ bool is_valid(Time &givenTime);
 
 bool is_am(Time &givenTime);
 
-string to_string(Time const &givenTime, format timeFormat);
+std::string to_string(Time const &givenTime, format timeFormat);
 
-ostream &operator<<(ostream &os, Time const &givenTime)
+std::ostream &operator<<(std::ostream &os, Time const &givenTime);
 
 #endif

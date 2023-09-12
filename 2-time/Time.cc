@@ -5,61 +5,63 @@
 
 using namespace std;
 
+Time operator+(const Time &givenTime1, const int &t) {
+  Time newTime;
+  int seconds = (((givenTime1.seconds + givenTime1.minutes * 60 +
+                   givenTime1.hours * 3600 + t) %
+                  86400) +
+                 86400) %
+                86400;
+  newTime.hours = seconds / 3600;
+  seconds = seconds % 3600;
+  newTime.minutes = seconds / 60;
+  seconds = seconds % 60;
+  newTime.seconds = seconds;
 
-
-Time operator+(const Time& givenTime1, const int& t ){
-    Time newTime;
-    int seconds= (((givenTime1.seconds + givenTime1.minutes*60 + givenTime1.hours*3600 + t)%86400)+86400)%86400;
-    newTime.hours = seconds/3600;
-    seconds = seconds%3600;
-    newTime.minutes = seconds/60;
-    seconds = seconds%60;
-    newTime.seconds = seconds;
-    
-   
-    return newTime;
+  return newTime;
 }
 
-
-Time operator+(const Time& givenTime1, const Time& givenTime2 ){
-    Time newTime;
-    newTime = givenTime1+(givenTime2.seconds+givenTime2.minutes*60+givenTime2.hours*3600);
-    return newTime;
-
+Time operator+(const Time &givenTime1, const Time &givenTime2) {
+  Time newTime;
+  newTime = givenTime1 + (givenTime2.seconds + givenTime2.minutes * 60 +
+                          givenTime2.hours * 3600);
+  return newTime;
 }
 
-Time operator-(const Time& givenTime1, const int& t ){
-    return givenTime1+(-t);
+Time operator-(const Time &givenTime1, const int &t) {
+  return givenTime1 + (-t);
 }
 
-Time& operator++(Time& givenTime){
-    givenTime = operator+(givenTime, 1);
-    return givenTime;
+Time &operator++(Time &givenTime) {
+  givenTime = operator+(givenTime, 1);
+  return givenTime;
 }
 
-Time operator++(Time& givenTime, int){
-    Time tmp{givenTime};
-    ++givenTime;
-    return tmp;
+Time operator++(Time &givenTime, int) {
+  Time tmp{givenTime};
+  ++givenTime;
+  return tmp;
 }
 
-Time& operator--(Time& givenTime){
-    givenTime = operator-(givenTime, 1);
-    return givenTime;
+Time &operator--(Time &givenTime) {
+  givenTime = operator-(givenTime, 1);
+  return givenTime;
 }
 
-Time operator--(Time& givenTime, int){
-    Time tmp{givenTime};
-    --givenTime;
-    return tmp;
+Time operator--(Time &givenTime, int) {
+  Time tmp{givenTime};
+  --givenTime;
+  return tmp;
 }
 
-bool operator==(const Time& givenTime1, const Time& givenTime2){
-    return ((givenTime1.hours == givenTime2.hours) and (givenTime1.minutes == givenTime2.minutes) and (givenTime1.seconds == givenTime2.seconds));
+bool operator==(const Time &givenTime1, const Time &givenTime2) {
+  return ((givenTime1.hours == givenTime2.hours) and
+          (givenTime1.minutes == givenTime2.minutes) and
+          (givenTime1.seconds == givenTime2.seconds));
 }
 
-bool operator!=(const Time& givenTime1, const Time& givenTime2){
-    return !(givenTime1==givenTime2);
+bool operator!=(const Time &givenTime1, const Time &givenTime2) {
+  return !(givenTime1 == givenTime2);
 }
 
 bool operator<(const Time &givenTime1, const Time &givenTime2) {
@@ -76,16 +78,16 @@ bool operator<(const Time &givenTime1, const Time &givenTime2) {
   return false;
 }
 
-bool operator<=(const Time& givenTime1, const Time& givenTime2){
-    return ((givenTime1 < givenTime2) or (givenTime1 == givenTime2));
+bool operator<=(const Time &givenTime1, const Time &givenTime2) {
+  return ((givenTime1 < givenTime2) or (givenTime1 == givenTime2));
 }
 
-bool operator>(const Time& givenTime1, const Time& givenTime2){
-    return operator<=(givenTime2, givenTime1);
+bool operator>(const Time &givenTime1, const Time &givenTime2) {
+  return operator<=(givenTime2, givenTime1);
 }
 
-bool operator>=(const Time& givenTime1, const Time& givenTime2){
-    return operator<(givenTime2, givenTime1);
+bool operator>=(const Time &givenTime1, const Time &givenTime2) {
+  return operator<(givenTime2, givenTime1);
 }
 
 bool is_valid(Time &givenTime) {

@@ -58,6 +58,10 @@ bool operator==(const Time& givenTime1, const Time& givenTime2){
     return ((givenTime1.hours == givenTime2.hours) and (givenTime1.minutes == givenTime2.minutes) and (givenTime1.seconds == givenTime2.seconds));
 }
 
+bool operator!=(const Time& givenTime1, const Time& givenTime2){
+    return !(givenTime1==givenTime2);
+}
+
 bool operator<(const Time &givenTime1, const Time &givenTime2) {
   if (givenTime1.hours < givenTime2.hours) {
     return true;

@@ -135,7 +135,7 @@ string to_string(Time const &given_time, format time_format) {
 }
 
 ostream &operator<<(ostream &os, Time const &given_time) {
-  os << to_string(given_time, EUROPEAN) << endl;
+  os << to_string(given_time, EUROPEAN);
   return os;
 }
 

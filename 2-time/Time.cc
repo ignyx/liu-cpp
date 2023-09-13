@@ -43,7 +43,7 @@ Time operator++(Time &givenTime, int) {
 }
 
 Time &operator--(Time &givenTime) {
-  givenTime = givenTime-1;
+  givenTime = givenTime - 1;
   return givenTime;
 }
 
@@ -78,7 +78,7 @@ bool operator<(const Time &givenTime1, const Time &givenTime2) {
 }
 
 bool operator<=(const Time &givenTime1, const Time &givenTime2) {
-  return ((givenTime1 < givenTime2) or (givenTime1 == givenTime2));
+  return (givenTime1 < givenTime2) or (givenTime1 == givenTime2);
 }
 
 bool operator>(const Time &givenTime1, const Time &givenTime2) {
@@ -90,9 +90,9 @@ bool operator>=(const Time &givenTime1, const Time &givenTime2) {
 }
 
 bool is_valid(Time &givenTime) {
-  return (givenTime.hours >= 0 and givenTime.hours < 24) 
-          and (givenTime.minutes >= 0 and givenTime.minutes < 60) 
-          and (givenTime.seconds >= 0 and givenTime.seconds < 60);
+  return (givenTime.hours >= 0 and givenTime.hours < 24) and
+         (givenTime.minutes >= 0 and givenTime.minutes < 60) and
+         (givenTime.seconds >= 0 and givenTime.seconds < 60);
 }
 
 bool is_am(Time const &givenTime) {

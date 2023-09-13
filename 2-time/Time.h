@@ -47,6 +47,6 @@ std::string to_string(Time const &givenTime, format timeFormat);
 
 std::ostream &operator<<(std::ostream &os, Time const &givenTime);
 
-std::istream& operator>>(istream& is, Time &  newTime);
+std::istream &operator>>(istream &is, Time &newTime);
 
 #endif

@@ -139,10 +139,10 @@ ostream &operator<<(ostream &os, Time const &given_time) {
   return os;
 }
 
-istream& operator>>(istream& is, Time &  newTime){
-    is >> newTime.hours >> newTime.minutes >> newTime.seconds;
-    if (!is_valid(newTime)){
-        cin.setstate(ios_base::failbit);
-    }
-    return is;
+istream &operator>>(istream &is, Time &newTime) {
+  is >> newTime.hours >> newTime.minutes >> newTime.seconds;
+  if (!is_valid(newTime)) {
+    cin.setstate(ios_base::failbit);
+  }
+  return is;
 }

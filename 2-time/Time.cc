@@ -140,39 +140,12 @@ ostream &operator<<(ostream &os, Time const &given_time) {
 }
 
 istream &operator>>(istream &is, Time &new_time) {
-  char character;
-  char number_chars[2];
-  int index{0};
-  bool failed{false};
+  char trash;
 
-  while (is >> character and !failed and index < 8) {
-    int relative_index = index % 3; // index in number_chars
-    cout << index << character << relative_index << endl;
-    if (isdigit(character)) {
-      if (relative_index > 1) // 3rd digit !
-        failed = true;
-      else
-        number_chars[relative_index] = character;
-    } else if (character == ':' and
-               relative_index == 2) { // column in right position
-      if (index == 2)
-        new_time.hours = atoi(number_chars);
-      else // index == 5
-        new_time.minutes = atoi(number_chars);
-      // seconds dealt with after loop
-    } else
-      failed = true;
-    index++;
-  }
-  if (!failed)
-    new_time.seconds = atoi(number_chars);
-  if (!failed)
-    cout << "sucess :thinking" << endl;
+  is >> new_time.hours >> trash >> new_time.minutes >> trash >>
+      new_time.seconds;
 
-  cout << new_time;
-
-  if (failed or !is_valid(new_time)) {
-    cout << is_valid(new_time);
+  if (!is_valid(new_time)) {
     new_time = {0, 0, 0};
     is.setstate(ios_base::failbit);
   }

@@ -17,7 +17,6 @@ Time operator+(const Time &givenTime1, const int &t) {
   newTime.minutes = seconds / 60;
   seconds = seconds % 60;
   newTime.seconds = seconds;
-
   return newTime;
 }
 
@@ -44,7 +43,7 @@ Time operator++(Time &givenTime, int) {
 }
 
 Time &operator--(Time &givenTime) {
-  givenTime = operator-(givenTime, 1);
+  givenTime = givenTime-1;
   return givenTime;
 }
 

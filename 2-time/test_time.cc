@@ -8,7 +8,7 @@ TEST_CASE("Time : Initialize Time struct") {
   CHECK(time.seconds == 0);
 }
 
-TEST_CASE("Time operator== : comparing two Time objects") {
+TEST_CASE("Time operator== : equality between two Time objects") {
   Time time_a, time_b;
 
   CHECK(time_a == time_b);
@@ -72,4 +72,262 @@ TEST_CASE("Time operator+ : adding two Time objects") {
   time_b = {10, 10, 1};
   time_c = {10, 6, 0};
   CHECK(time_a + time_b == time_c);
+}
+
+TEST_CASE("Time operator+ : adding a Time object and an int") {
+  Time time_a, time_b;
+
+  CHECK(time_a + 0 == time_a);
+
+  time_b = {0, 0, 59};
+  CHECK(time_a + 59 == time_b);
+
+  time_b = {23, 59, 57};
+  CHECK(time_a + 86397 == time_b);
+  CHECK(time_a + (-3) == time_b);
+
+  time_a = {2, 59, 59};
+  time_b = {3, 0, 0};
+  CHECK(time_a + 1 == time_b);
+  CHECK(time_b + (-1) == time_a);
+
+  CHECK(time_a + (-86400) == time_a);
+}
+
+TEST_CASE("Time operator- : substracting an int to a Time object") {
+  Time time_a, time_b;
+
+  CHECK(time_a - 0 == time_a);
+
+  time_b = {0, 0, 59};
+  CHECK(time_b - 59 == time_a);
+
+  time_b = {23, 59, 57};
+  CHECK(time_b - 86397 == time_a);
+  CHECK(time_b - (-3) == time_a);
+
+  time_a = {2, 59, 59};
+  time_b = {3, 0, 0};
+  CHECK(time_b - 1 == time_a);
+  CHECK(time_a - (-1) == time_b);
+
+  CHECK(time_b - (-86400) == time_b);
+}
+
+TEST_CASE("Time operator++ : incrementing a Time object") {
+  Time time_a, time_b;
+
+  CHECK(time_a++ == time_b);
+  CHECK(time_a == time_b + 1);
+
+  time_a = {2, 59, 59};
+  time_b = time_a;
+  CHECK(time_a++ == time_b);
+  CHECK(time_a == time_b + 1);
+
+  time_a = {23, 59, 59};
+  time_b = time_a;
+  CHECK(time_a++ == time_b);
+  CHECK(time_a == time_b + 1);
+}
+
+TEST_CASE("Time ++operator : incrementing a Time object") {
+  Time time_a, time_b;
+
+  CHECK_FALSE(++time_a == time_b);
+  CHECK(time_a == time_b + 1);
+
+  time_a = {2, 59, 59};
+  time_b = time_a;
+  CHECK_FALSE(++time_a == time_b);
+  CHECK(time_a == time_b + 1);
+
+  time_a = {23, 59, 59};
+  time_b = time_a;
+  CHECK_FALSE(++time_a == time_b);
+  CHECK(time_a == time_b + 1);
+}
+
+TEST_CASE("Time operator-- : decrementing a Time object") {
+  Time time_a, time_b;
+
+  CHECK(time_a-- == time_b);
+  CHECK(time_a == time_b - 1);
+
+  time_a = {2, 59, 59};
+  time_b = time_a;
+  CHECK(time_a-- == time_b);
+  CHECK(time_a == time_b - 1);
+
+  time_a = {23, 59, 59};
+  time_b = time_a;
+  CHECK(time_a-- == time_b);
+  CHECK(time_a == time_b - 1);
+}
+
+TEST_CASE("Time --operator : decrementing a Time object") {
+  Time time_a, time_b;
+
+  CHECK_FALSE(--time_a == time_b);
+  CHECK(time_a == time_b - 1);
+
+  time_a = {2, 59, 59};
+  time_b = time_a;
+  CHECK_FALSE(--time_a == time_b);
+  CHECK(time_a == time_b - 1);
+
+  time_a = {23, 59, 59};
+  time_b = time_a;
+  CHECK_FALSE(--time_a == time_b);
+  CHECK(time_a == time_b - 1);
+}
+
+TEST_CASE("Time operator!= : inequality between two Time objects") {
+  Time time_a, time_b;
+
+  CHECK_FALSE(time_a != time_b);
+  CHECK_FALSE(time_b != time_a);
+
+  time_a = {0, 0, 1};
+  CHECK(time_a != time_b);
+  CHECK(time_b != time_a);
+
+  time_b = time_a;
+  CHECK_FALSE(time_a != time_b);
+  CHECK_FALSE(time_b != time_a);
+
+  time_a = {2, 38, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a != time_b);
+  CHECK(time_b != time_a);
+
+  time_a = {3, 37, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a != time_b);
+  CHECK(time_b != time_a);
+
+  time_a = {2, 37, 46};
+  time_b = {2, 37, 45};
+  CHECK(time_a != time_b);
+  CHECK(time_b != time_a);
+}
+
+TEST_CASE("Time operator< : comparison between Time objects") {
+  Time time_a, time_b;
+
+  CHECK_FALSE(time_a < time_b);
+  CHECK_FALSE(time_b < time_a);
+
+  time_a = {0, 0, 1};
+  CHECK_FALSE(time_a < time_b);
+  CHECK(time_b < time_a);
+
+  time_b = time_a;
+  CHECK_FALSE(time_a < time_b);
+  CHECK_FALSE(time_b < time_a);
+
+  time_a = {2, 38, 45};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a < time_b);
+  CHECK(time_b < time_a);
+
+  time_a = {3, 37, 45};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a < time_b);
+  CHECK(time_b < time_a);
+
+  time_a = {2, 37, 46};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a < time_b);
+  CHECK(time_b < time_a);
+}
+
+TEST_CASE("Time operator<= : comparison between Time objects") {
+  Time time_a, time_b;
+
+  CHECK(time_a <= time_b);
+  CHECK(time_b <= time_a);
+
+  time_a = {0, 0, 1};
+  CHECK_FALSE(time_a <= time_b);
+  CHECK(time_b <= time_a);
+
+  time_b = time_a;
+  CHECK(time_a <= time_b);
+  CHECK(time_b <= time_a);
+
+  time_a = {2, 38, 45};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a <= time_b);
+  CHECK(time_b <= time_a);
+
+  time_a = {3, 37, 45};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a <= time_b);
+  CHECK(time_b <= time_a);
+
+  time_a = {2, 37, 46};
+  time_b = {2, 37, 45};
+  CHECK_FALSE(time_a <= time_b);
+  CHECK(time_b <= time_a);
+}
+
+TEST_CASE("Time operator> : comparison between Time objects") {
+  Time time_a, time_b;
+
+  CHECK_FALSE(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+
+  time_a = {0, 0, 1};
+  CHECK(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+
+  time_b = time_a;
+  CHECK_FALSE(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+
+  time_a = {2, 38, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+
+  time_a = {3, 37, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+
+  time_a = {2, 37, 46};
+  time_b = {2, 37, 45};
+  CHECK(time_a > time_b);
+  CHECK_FALSE(time_b > time_a);
+}
+
+TEST_CASE("Time operator>= : comparison between Time objects") {
+  Time time_a, time_b;
+
+  CHECK(time_a >= time_b);
+  CHECK(time_b >= time_a);
+
+  time_a = {0, 0, 1};
+  CHECK(time_a >= time_b);
+  CHECK_FALSE(time_b >= time_a);
+
+  time_b = time_a;
+  CHECK(time_a >= time_b);
+  CHECK(time_b >= time_a);
+
+  time_a = {2, 38, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a >= time_b);
+  CHECK_FALSE(time_b >= time_a);
+
+  time_a = {3, 37, 45};
+  time_b = {2, 37, 45};
+  CHECK(time_a >= time_b);
+  CHECK_FALSE(time_b >= time_a);
+
+  time_a = {2, 37, 46};
+  time_b = {2, 37, 45};
+  CHECK(time_a >= time_b);
+  CHECK_FALSE(time_b >= time_a);
 }

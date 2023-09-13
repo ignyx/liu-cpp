@@ -421,3 +421,30 @@ TEST_CASE("Time to_string : display time") {
   time_a = {23, 59, 59};
   CHECK(to_string(time_a, EUROPEAN) == "23:59:59");
 }
+/fake cin
+TEST_CASE("Time to_string : display time") {
+  std::istringstreamiss{"12 19 8"};
+  Time time_a{}; 
+  iss>>time_a; 
+  CHECK_FALSE(iss.fail());
+  CHECK(to_string(z)=="12:19:08", EUROPEAN);
+
+  std::istringstreamiss{"0 1 2 3 4"};
+  iss>>time_a; 
+  CHECK_FALSE(iss.fail());
+  CHECK(to_string(z)=="00:01:02", EUROPEAN);
+
+
+  std::istringstreamiss{"0 -19 8"};
+  iss>>time_a; 
+  CHECK(iss.fail());
+CHECK_FAIL(to_string(time_a)=="00:-19:08", EUROPEAN);
+
+
+//fake cout
+std::ostringstreamoss{};
+Time time_a{13 7 59};
+oss<<time_a<<endl; 
+CHECK(oss.str()=="13:07:59");
+
+

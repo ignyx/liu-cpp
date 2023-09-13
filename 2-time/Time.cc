@@ -82,11 +82,11 @@ bool operator<=(const Time &givenTime1, const Time &givenTime2) {
 }
 
 bool operator>(const Time &givenTime1, const Time &givenTime2) {
-  return operator<=(givenTime2, givenTime1);
+  return !(givenTime1 <= givenTime2);
 }
 
 bool operator>=(const Time &givenTime1, const Time &givenTime2) {
-  return operator<(givenTime2, givenTime1);
+  return !(givenTime1 < givenTime2);
 }
 
 bool is_valid(Time &givenTime) {

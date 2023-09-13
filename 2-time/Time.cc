@@ -108,8 +108,8 @@ string fill_two_decimals(int decimal) {
     return decimalString;
   } else {
     decimalString = "0" + decimalString;
+    return decimalString;
   }
-  return decimalString;
 }
 
 string to_string(Time const &givenTime, format timeFormat) {

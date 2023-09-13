@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+//USA : 12 hours format / EUROPEAN : 24 hours format
 enum format { USA, EUROPEAN };
 
 struct Time {

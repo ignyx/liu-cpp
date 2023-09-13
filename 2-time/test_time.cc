@@ -426,17 +426,17 @@ TEST_CASE("Time to_string : display time") {
 TEST_CASE("Time stream in") {
   Time time_a{};
 
-  std::istringstream iss{"12 19 8"};
+  std::istringstream iss{"12:19:08"};
   iss >> time_a;
   CHECK_FALSE(iss.fail());
   CHECK(to_string(time_a, EUROPEAN) == "12:19:08");
 
-  std::istringstream iss2{"0 1 2 3 4"};
+  std::istringstream iss2{"00:01:02 3 4"};
   iss2 >> time_a;
   CHECK_FALSE(iss2.fail());
   CHECK(to_string(time_a, EUROPEAN) == "00:01:02");
 
-  std::istringstream iss3{"0 -19 8"};
+  std::istringstream iss3{"00:79:08"};
   iss3 >> time_a;
   CHECK(iss3.fail());
   CHECK(to_string(time_a, EUROPEAN) == "00:00:00");

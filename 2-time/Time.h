@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-//USA : 12 hours format / EUROPEAN : 24 hours format
+// USA : 12 hours format / EUROPEAN : 24 hours format
 enum format { USA, EUROPEAN };
 
 struct Time {
@@ -39,9 +39,9 @@ bool operator>(const Time &givenTime1, const Time &givenTime2);
 
 bool operator>=(const Time &givenTime1, const Time &givenTime2);
 
-bool is_valid(Time &givenTime);
+bool is_valid(Time const &givenTime);
 
-bool is_am(Time &givenTime);
+bool is_am(Time const &givenTime);
 
 std::string to_string(Time const &givenTime, format timeFormat);
 

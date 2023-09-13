@@ -89,7 +89,7 @@ bool operator>=(const Time &givenTime1, const Time &givenTime2) {
   return !(givenTime1 < givenTime2);
 }
 
-bool is_valid(Time &givenTime) {
+bool is_valid(Time const &givenTime) {
   return (givenTime.hours >= 0 and givenTime.hours < 24) and
          (givenTime.minutes >= 0 and givenTime.minutes < 60) and
          (givenTime.seconds >= 0 and givenTime.seconds < 60);

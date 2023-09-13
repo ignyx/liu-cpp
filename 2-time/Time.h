@@ -16,6 +16,8 @@ Time operator+(const Time &givenTime1, const Time &givenTime2);
 
 Time operator+(const Time &givenTime1, const int &t);
 
+Time operator-(const Time &givenTime1, const int &t);
+
 Time &operator++(Time &givenTime);
 
 Time operator++(Time &givenTime, int);

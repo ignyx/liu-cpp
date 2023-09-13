@@ -331,3 +331,93 @@ TEST_CASE("Time operator>= : comparison between Time objects") {
   CHECK(time_a >= time_b);
   CHECK_FALSE(time_b >= time_a);
 }
+
+TEST_CASE("Time is_valid : valid values") {
+  Time time_a;
+
+  CHECK(is_valid(time_a));
+
+  time_a = {0, 0, 1};
+  CHECK(is_valid(time_a));
+
+  time_a = {0, 0, -1};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {0, 0, 60};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {0, -1, 59};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {0, 60, 0};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {-1, 59, 59};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {24, 0, 0};
+  CHECK_FALSE(is_valid(time_a));
+
+  time_a = {23, 59, 59};
+  CHECK(is_valid(time_a));
+}
+
+TEST_CASE("Time is_am : ante / post meridian") {
+  Time time_a;
+
+  CHECK(is_am(time_a));
+
+  time_a = {0, 0, 1};
+  CHECK(is_am(time_a));
+
+  time_a = {11, 59, 59};
+  CHECK(is_am(time_a));
+
+  time_a = {12, 0, 0};
+  CHECK_FALSE(is_am(time_a));
+
+  time_a = {12, 0, 1};
+  CHECK_FALSE(is_am(time_a));
+
+  time_a = {23, 59, 59};
+  CHECK_FALSE(is_am(time_a));
+}
+
+TEST_CASE("Time to_string : display time") {
+  Time time_a;
+
+  CHECK(to_string(time_a, USA) == "12:00:00 AM");
+
+  time_a = {0, 0, 1};
+  CHECK(to_string(time_a, USA) == "12:00:01 AM");
+
+  time_a = {11, 59, 59};
+  CHECK(to_string(time_a, USA) == "11:59:59 AM");
+
+  time_a = {12, 0, 0};
+  CHECK(to_string(time_a, USA) == "12:00:00 PM");
+
+  time_a = {12, 0, 1};
+  CHECK(to_string(time_a, USA) == "12:00:01 PM");
+
+  time_a = {23, 59, 59};
+  CHECK(to_string(time_a, USA) == "11:59:59 PM");
+
+  time_a = {0, 0, 0};
+  CHECK(to_string(time_a, EUROPEAN) == "00:00:00");
+
+  time_a = {0, 0, 1};
+  CHECK(to_string(time_a, EUROPEAN) == "00:00:01");
+
+  time_a = {11, 59, 59};
+  CHECK(to_string(time_a, EUROPEAN) == "11:59:59");
+
+  time_a = {12, 0, 0};
+  CHECK(to_string(time_a, EUROPEAN) == "12:00:00");
+
+  time_a = {12, 0, 1};
+  CHECK(to_string(time_a, EUROPEAN) == "12:00:01");
+
+  time_a = {23, 59, 59};
+  CHECK(to_string(time_a, EUROPEAN) == "23:59:59");
+}

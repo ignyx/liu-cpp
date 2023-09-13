@@ -90,28 +90,15 @@ bool operator>=(const Time &givenTime1, const Time &givenTime2) {
 }
 
 bool is_valid(Time &givenTime) {
-  bool timeValidity = true;
-  if (givenTime.seconds < 0 or givenTime.seconds >= 60) {
-    cout << "Unvalid seconds" << endl;
-    timeValidity = false;
-  }
-  if (givenTime.minutes < 0 or givenTime.minutes >= 60) {
-    cout << "Unvalid minutes" << endl;
-    timeValidity = false;
-  }
-  if (givenTime.hours < 0 or givenTime.hours >= 24) {
-    cout << "Unvalid hours" << endl;
-    timeValidity = false;
-  }
-  return timeValidity;
+  return (givenTime.hours >= 0 and givenTime.hours < 24) 
+          and (givenTime.minutes >= 0 and givenTime.minutes < 60) 
+          and (givenTime.seconds >= 0 and givenTime.seconds < 60);
 }
 
 bool is_am(Time const &givenTime) {
   if (givenTime.hours >= 12) {
-    cout << "PM hour" << endl;
     return false;
   }
-  cout << "AM hour" << endl;
   return true;
 }
 

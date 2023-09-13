@@ -116,11 +116,11 @@ string to_string(Time const &givenTime, format timeFormat) {
   string timeString;
   if (timeFormat == USA) {
     if (is_am(givenTime)) {
-      timeString = fill_two_decimals((givenTime.hours) % 12) + ":" +
+      timeString = fill_two_decimals((givenTime.hours + 11) % 12 + 1) + ":" +
                    fill_two_decimals(givenTime.minutes) + ":" +
                    fill_two_decimals(givenTime.seconds) + " AM";
     } else {
-      timeString = fill_two_decimals((givenTime.hours) % 12) + ":" +
+      timeString = fill_two_decimals((givenTime.hours + 11) % 12 + 1) + ":" +
                    fill_two_decimals(givenTime.minutes) + ":" +
                    fill_two_decimals(givenTime.seconds) + " PM";
     }

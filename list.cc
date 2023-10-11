@@ -16,6 +16,7 @@ class list {
     public:
     list() : first(nullptr) {}
     list(std::initializer_list<int> list);
+     list(const list& other);
     ~list();
     list& operator=(list const& other);
     void insert(double value);

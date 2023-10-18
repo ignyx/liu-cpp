@@ -16,8 +16,10 @@ public:
   List() : first(nullptr){};
   List(std::initializer_list<double> List);
   List(const List &other);
+  List(List &&other);
   ~List();
   List &operator=(List const &other);
+  List &operator=(List &&other);
   void insert(double value);
   double find_value_with_rank(int rank);
   int find_rank_with_value(double value);

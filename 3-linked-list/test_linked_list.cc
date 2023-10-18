@@ -104,7 +104,7 @@ TEST_CASE("List : acess ranks with values") {
   CHECK(list.find_rank_with_value(3.15) == -1);
 }
 
-TEST_CASE("List : operator =") {
+TEST_CASE("List : copy operator") {
   List list_a{3.14, 1.0, -43.0, 0.0, 0.0};
   List list_b{5.0};
 
@@ -200,4 +200,38 @@ TEST_CASE("List : delete element with values") {
   CHECK(list_a.find_value_with_rank(0) == 0.0);
   CHECK(list_a.find_value_with_rank(1) == 1.0);
   CHECK(list_a.size() == 2);
+}
+
+TEST_CASE("List : move operator") {
+  List list_a{3.14, 1.0, -43.0, 0.0, 0.0};
+  List list_b{5.0};
+
+  CHECK(list_a.size() == 5);
+  CHECK(list_b.size() == 1);
+
+  list_a = std::move(list_b); // move assignment
+
+  CHECK(list_a.size() == 1);
+  CHECK(list_b.size() == 0);
+  CHECK(list_a.find_value_with_rank(0) == 5);
+
+  list_a = std::move(list_b); // move assignment
+
+  CHECK(list_a.size() == 0);
+  CHECK(list_b.size() == 0);
+  CHECK(list_a.find_value_with_rank(0) == 0.0);
+}
+
+TEST_CASE("List : move constructor") {
+  List list_a{3.14, 1.0, -43.0, 0.0, 0.0};
+
+  CHECK(list_a.size() == 5);
+
+  List list_b{std::move(list_a)}; // move constructor
+
+  CHECK(list_a.size() == 0);
+  CHECK(list_b.size() == 5);
+  CHECK(list_b.find_value_with_rank(0) == -43.0);
+  CHECK(list_b.find_value_with_rank(1) == 0.0);
+  CHECK(list_b.find_value_with_rank(4) == 3.14);
 }

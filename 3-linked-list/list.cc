@@ -54,6 +54,9 @@ List::List(const List &other) : first(nullptr) {
   }
 }
 
+// move constructor
+List::List(List &&other) : first(other.first) { other.first = nullptr; }
+
 // return the value stocked at rank "target_rank", if not find, return 0
 double List::find_value_with_rank(int target_rank) {
   if (target_rank < 0)
@@ -169,6 +172,7 @@ int List::size() {
 
 bool List::is_empty() { return first == nullptr; }
 
+// copy assignment operator
 List &List::operator=(List const &other) {
   // Prevent self-assignment
   if (first == other.first)
@@ -190,5 +194,25 @@ List &List::operator=(List const &other) {
 
     current_element = current_element->next;
   }
+  return *this;
+}
+
+// move assignment operator
+List &List::operator=(List &&other) {
+  // Prevent self-assignment
+  if (first == other.first)
+    return *this;
+
+  Element *current = first;
+  while (current != nullptr) {
+    Element *temp = current;
+    current = current->next;
+    delete temp;
+  }
+
+  first = other.first;
+
+  other.first = nullptr;
+
   return *this;
 }

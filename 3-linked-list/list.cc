@@ -8,8 +8,8 @@ using namespace std;
 
 // construcor, allow multiple values
 List::List(std::initializer_list<double> list) : first(nullptr) {
-  for (int i : list) {
-    insert(i);
+  for (double value : list) {
+    insert(value);
   }
 }
 
@@ -29,7 +29,12 @@ void List::insert(double value) {
   if (first == nullptr) {
     first = new_element;
     return;
+  } else if (value < first->value) {
+    new_element->next = first;
+    first = new_element;
+    return;
   }
+
   Element *current_element = first;
   while (current_element->next != nullptr or current_element->value < value) {
     current_element = current_element->next;
@@ -51,21 +56,16 @@ List::List(const List &other) : first(nullptr) {
 
 // return the value stocked at rank "target_rank", if not find, return 0
 double List::find_value_with_rank(int target_rank) {
-  double value = 0;
-  if (first == nullptr) {
-    return 0;
-  }
-  int current_rank(0);
+  int current_rank{0};
+  Element *current_element{first};
 
-  Element *current_element = first;
-  while (current_element->next != nullptr and current_rank + 1 != target_rank) {
-    current_element = current_element->next;
+  while (current_element != nullptr and current_rank < target_rank) {
     current_rank++;
+    current_element = current_element->next;
   }
-  if (current_element->next != nullptr) {
-    value = current_element->next->value;
-  }
-  return value;
+  if (current_element != nullptr)
+    return current_element->value;
+  return 0.0;
 }
 
 // return the rank of the first apparence of a value, -1 if not found, begin at

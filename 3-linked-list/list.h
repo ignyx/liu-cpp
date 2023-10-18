@@ -5,7 +5,7 @@
 struct Element {
   double value;
   Element *next;
-  Element(int value) : value(value), next(nullptr) {}
+  Element(double value) : value(value), next(nullptr) {}
 };
 
 class List {

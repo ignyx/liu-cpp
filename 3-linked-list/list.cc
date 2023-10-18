@@ -168,3 +168,27 @@ int List::size() {
 }
 
 bool List::is_empty() { return first == nullptr; }
+
+List &List::operator=(List const &other) {
+  // Prevent self-assignment
+  if (first == other.first)
+    return *this;
+
+  // delete this' elements
+  Element *current = first;
+  while (current != nullptr) {
+    Element *temp = current;
+    current = current->next;
+    delete temp;
+  }
+  first = nullptr;
+
+  // deep copy new elements
+  Element *current_element = other.first;
+  while (current_element != nullptr) {
+    insert(current_element->value);
+
+    current_element = current_element->next;
+  }
+  return *this;
+}

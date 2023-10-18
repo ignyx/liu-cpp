@@ -36,7 +36,8 @@ void List::insert(double value) {
   }
 
   Element *current_element = first;
-  while (current_element->next != nullptr and current_element->value < value) {
+  while (current_element->next != nullptr and
+         current_element->next->value < value) {
     current_element = current_element->next;
   }
   new_element->next = current_element->next;
@@ -57,6 +58,9 @@ List::List(const List &other) : first(nullptr) {
 
 // return the value stocked at rank "target_rank", if not find, return 0
 double List::find_value_with_rank(int target_rank) {
+  if (target_rank < 0)
+    return 0.0;
+
   int current_rank{0};
   Element *current_element{first};
 
@@ -72,24 +76,21 @@ double List::find_value_with_rank(int target_rank) {
 // return the rank of the first apparence of a value, -1 if not found, begin at
 // 0
 int List::find_rank_with_value(double value) {
-  int rank(-1);
   if (first == nullptr) {
-    return rank;
-  }
-
-  if (first->value == value) {
+    return -1;
+  } else if (first->value == value) {
     return 0;
   }
+  int rank{1};
 
-  Element *current_element = first;
+  Element *current_element{first};
   while (current_element->next != nullptr and
          current_element->next->value != value) {
+    rank++;
     current_element = current_element->next;
   }
-  if (current_element->next != nullptr) {
-    Element *temp = current_element->next;
-    current_element->next = current_element->next->next;
-    delete temp;
+  if (current_element->next == nullptr) {
+    return -1;
   }
   return rank;
 }

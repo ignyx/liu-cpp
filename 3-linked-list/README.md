@@ -18,3 +18,9 @@ We can then compile and run the tests :
 g++ -o run_tests.out -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast test_main.o Time.cc test_time.cc
 ./run_tests.out
 ```
+
+Check for mem-leaks :
+
+```
+valgrind --tool=memcheck --leak-check=yes ./run_tests.out
+```

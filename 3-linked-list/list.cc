@@ -36,7 +36,7 @@ void List::insert(double value) {
   }
 
   Element *current_element = first;
-  while (current_element->next != nullptr or current_element->value < value) {
+  while (current_element->next != nullptr and current_element->value < value) {
     current_element = current_element->next;
   }
   new_element->next = current_element->next;

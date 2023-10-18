@@ -98,10 +98,15 @@ int List::find_rank_with_value(double value) {
 // delete the Element at rank "target_rank", do nothing if rank bigger than the
 // list size, may have return a boolean but flemme
 void List::delete_element_with_rank(int target_rank) {
-  if (first == nullptr) {
+  if (first == nullptr or target_rank >= size()) {
     return;
+  } else if (target_rank == 0) {
+    Element *temp = first;
+    first = first->next;
+    delete temp;
   }
-  int current_rank(0);
+
+  int current_rank{0};
 
   Element *current_element = first;
   while (current_element->next != nullptr and current_rank + 1 != target_rank) {
@@ -119,9 +124,7 @@ void List::delete_element_with_rank(int target_rank) {
 void List::delete_element_with_value(double value) {
   if (first == nullptr) {
     return;
-  }
-
-  if (first->value == value) {
+  } else if (first->value == value) {
     Element *temp = first;
     first = first->next;
     delete temp;

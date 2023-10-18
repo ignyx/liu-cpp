@@ -1,14 +1,13 @@
+#include "list.h"
 #include <initializer_list>
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "list.h"
 
 using namespace std;
 
-
 // construcor, allow multiple values
-List::List(std::initializer_list<int> list) : first(nullptr) {
+List::List(std::initializer_list<double> list) : first(nullptr) {
   for (int i : list) {
     insert(i);
   }
@@ -154,3 +153,15 @@ void List::display() {
   if (current != nullptr)
     display_list(current);
 }
+
+int List::size() {
+  int count{0};
+  Element *current{first};
+  while (current != nullptr) {
+    count++;
+    current = current->next;
+  }
+  return count;
+}
+
+bool List::is_empty() { return first == nullptr; }

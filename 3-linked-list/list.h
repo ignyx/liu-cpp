@@ -1,31 +1,30 @@
-#ifdef LIST_H
-#define LIST_H
+#ifndef List_H
+#define List_H
+#include <initializer_list>
 
-struct element
-{
-     double value;
-     element* next;
-     element(int value) : value(value), next(nullptr) {}
+struct Element {
+  double value;
+  Element *next;
+  Element(int value) : value(value), next(nullptr) {}
 };
 
-class list {
-    public:
-    list() : first(nullptr) {};
-    list(std::initializer_list<int> list);
-    list(const list& other);
-    ~list();
-    list& operator=(list const& other);
-    void insert(double value);
-    double find_value_with_rank(int rank);
-    int find_rank_with_value(double value);
-    void delete_element_with_rank(int rank);
-    void delete_element_with_value(double value);
-    void display();
+class List {
+private:
+  Element *first;
 
-    private : 
-    element* first;
-    int length;
-
+public:
+  List() : first(nullptr){};
+  List(std::initializer_list<double> List);
+  List(const List &other);
+  ~List();
+  List &operator=(List const &other);
+  void insert(double value);
+  double find_value_with_rank(int rank);
+  int find_rank_with_value(double value);
+  void delete_element_with_rank(int rank);
+  void delete_element_with_value(double value);
+  void display();
+  int size();
+  bool is_empty();
 };
-
 #endif

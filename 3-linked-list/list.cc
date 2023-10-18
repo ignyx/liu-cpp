@@ -171,5 +171,3 @@ void list::display() {
   }
   cout << endl;
 }
-
-int main() { return 0; }

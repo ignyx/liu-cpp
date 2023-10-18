@@ -13,7 +13,7 @@ struct Element {
 
 class List {
 public:
-  List() : first(nullptr) {}
+  List() : first(nullptr){};
   List(std::initializer_list<int> list);
   List(const List &other);
   ~List();
@@ -27,11 +27,10 @@ public:
 
 private:
   Element *first;
-  int length;
 };
 
 // construcor, allow multiple values
-List::List(std::initializer_list<int> list) {
+List::List(std::initializer_list<int> list) : first(nullptr) {
   for (int i : list) {
     insert(i);
   }
@@ -63,7 +62,7 @@ void List::insert(double value) {
 }
 
 // copy constructor
-List::List(const List &other) {
+List::List(const List &other) : first(nullptr) {
   if (other.first != nullptr) {
     Element *current_element = other.first;
     while (current_element != nullptr) {

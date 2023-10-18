@@ -48,9 +48,7 @@ void List::insert(double value) {
 List::List(const List &other) : first(nullptr) {
   Element *current_element = other.first;
   while (current_element != nullptr) {
-    cout << current_element->value;
     insert(current_element->value);
-    cout << "ok" << flush;
 
     current_element = current_element->next;
   }

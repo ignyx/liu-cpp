@@ -139,12 +139,18 @@ void List::delete_element_with_value(double value) {
   }
 }
 
+// recursively display a linked list of elements
+void display_list(Element *element) {
+  cout << element->value << " ";
+  if (element->next != nullptr)
+    display_list(element->next);
+  else
+    cout << endl;
+}
+
 // well it display the list
 void List::display() {
   Element *current = first;
-  while (current != nullptr) {
-    cout << current->value << " ";
-    current = current->next;
-  }
-  cout << endl;
+  if (current != nullptr)
+    display_list(current);
 }

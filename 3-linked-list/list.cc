@@ -45,12 +45,13 @@ void List::insert(double value) {
 
 // copy constructor
 List::List(const List &other) : first(nullptr) {
-  if (other.first != nullptr) {
-    Element *current_element = other.first;
-    while (current_element != nullptr) {
-      insert(current_element->value);
-      current_element = current_element->next;
-    }
+  Element *current_element = other.first;
+  while (current_element != nullptr) {
+    cout << current_element->value;
+    insert(current_element->value);
+    cout << "ok" << flush;
+
+    current_element = current_element->next;
   }
 }
 

@@ -2,32 +2,10 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include "list.h"
 
 using namespace std;
 
-struct Element {
-  double value;
-  Element *next;
-  Element(int value) : value(value), next(nullptr) {}
-};
-
-class List {
-public:
-  List() : first(nullptr){};
-  List(std::initializer_list<int> list);
-  List(const List &other);
-  ~List();
-  List &operator=(List const &other);
-  void insert(double value);
-  double find_value_with_rank(int rank);
-  int find_rank_with_value(double value);
-  void delete_element_with_rank(int rank);
-  void delete_element_with_value(double value);
-  void display();
-
-private:
-  Element *first;
-};
 
 // construcor, allow multiple values
 List::List(std::initializer_list<int> list) : first(nullptr) {

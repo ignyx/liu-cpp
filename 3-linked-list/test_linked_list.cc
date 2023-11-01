@@ -1,6 +1,7 @@
 // pending header file
 #include "catch.hpp"
 #include "list.h"
+#include <sstream>
 
 TEST_CASE("List : Initialize list object") {
   List list = List();
@@ -234,4 +235,22 @@ TEST_CASE("List : move constructor") {
   CHECK(list_b.find_value_with_rank(0) == -43.0);
   CHECK(list_b.find_value_with_rank(1) == 0.0);
   CHECK(list_b.find_value_with_rank(4) == 3.14);
+}
+
+TEST_CASE("List : display non-empty list") {
+  List list_a{3.14, 1.0, -43.0, 0.0, 0.0};
+
+  // fake cout
+  std::ostringstream oss{};
+  oss << list_a << std::flush;
+  CHECK(oss.str() == "-43.000000 0.000000 0.000000 1.000000 3.140000");
+}
+
+TEST_CASE("List : display empty list") {
+  List list_a{};
+
+  // fake cout
+  std::ostringstream oss{};
+  oss << list_a << std::flush;
+  CHECK(oss.str() == "");
 }

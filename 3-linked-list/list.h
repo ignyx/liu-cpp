@@ -1,6 +1,7 @@
 #ifndef List_H
 #define List_H
 #include <initializer_list>
+#include <iostream>
 
 struct Element {
   double value;
@@ -25,8 +26,10 @@ public:
   int find_rank_with_value(double value);
   void delete_element_with_rank(int rank);
   void delete_element_with_value(double value);
-  void display();
   int size();
   bool is_empty();
+  std::string to_string() const;
 };
+
+std::ostream &operator<<(std::ostream &os, List const &list);
 #endif

@@ -60,7 +60,7 @@ List::List(List &&other) : first(other.first) { other.first = nullptr; }
 // return the value stocked at rank "target_rank", if not find, return 0
 double List::find_value_with_rank(int target_rank) {
   if (target_rank < 0)
-    return 0.0;
+    return 0.0; // ideally would return an error
 
   int current_rank{0};
   Element *current_element{first};
@@ -144,20 +144,24 @@ void List::delete_element_with_value(double value) {
   }
 }
 
-// recursively display a linked list of elements
-void display_list(Element *element) {
-  cout << element->value << " ";
-  if (element->next != nullptr)
-    display_list(element->next);
+string element_to_string(Element *element) {
+  if (element->next == nullptr)
+    return to_string(element->value);
   else
-    cout << endl;
+    return to_string(element->value) + " " + element_to_string(element->next);
 }
 
-// well it display the list
-void List::display() {
-  Element *current = first;
-  if (current != nullptr)
-    display_list(current);
+string List::to_string() const {
+  if (first == nullptr)
+    return "";
+  else
+    return element_to_string(first);
+}
+
+// recursively display a linked list of elements
+ostream &operator<<(ostream &os, List const &list) {
+  os << list.to_string();
+  return os;
 }
 
 int List::size() {

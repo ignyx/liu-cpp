@@ -14,7 +14,7 @@ public:
             Connection &terminal_b);
   double const get_voltage();
   virtual double const get_current();
-  virtual void run_tick();
+  virtual void run_step(const double time);
   std::string const &get_name();
 
 private:
@@ -38,7 +38,7 @@ class Battery : public Component {
 public:
   Battery(std::string const &name, double voltage, Connection terminal_a,
           Connection terminal_b);
-  void run_tick();
+  void run_step(const double time);
 
 private:
   const double voltage;
@@ -49,7 +49,7 @@ public:
   Resistor(std::string const &name, double resistance, Connection terminal_a,
            Connection terminal_b);
   double const get_current();
-  void run_tick();
+  void run_step(const double time);
 
 private:
   const double resistance;
@@ -60,7 +60,7 @@ public:
   Capacitor(std::string const &name, double capacitance, Connection terminal_a,
             Connection terminal_b);
   double const get_current();
-  void run_tick();
+  void run_step(const double time);
 
 private:
   const double capacitance;

@@ -7,6 +7,8 @@ double Component::get_voltage() {
   return terminal_b.potential - terminal_a.potential;
 }
 
+void Component::run_step(const double) {}
+
 std::string const &Component::get_name() { return name; }
 
 void Network::add_component(Component &component) {

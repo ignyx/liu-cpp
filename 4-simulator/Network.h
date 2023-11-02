@@ -13,6 +13,7 @@ public:
   Component(std::string const &name, Connection &terminal_a,
             Connection &terminal_b)
       : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {};
+  virtual ~Component() = default; // virtual destructor
   double get_voltage();
   virtual double get_current();
   virtual void run_step(const double time);

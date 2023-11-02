@@ -1,7 +1,4 @@
 #include "Network.h"
-#include <initializer_list>
-#include <iomanip>
-#include <iostream>
 #include <string>
 
 using namespace std;

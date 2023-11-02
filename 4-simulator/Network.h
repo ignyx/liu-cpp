@@ -11,12 +11,17 @@ public:
 
 class Component {
 public:
-  Component(std::string name, Connection &terminal_a, Connection &terminal_b);
+  Component(std::string const &name, Connection &terminal_a,
+            Connection &terminal_b);
   double const get_voltage();
   virtual double const get_current();
   virtual void run_tick();
   std::vector<Connection> const &get_terminals();
   std::string const &get_name();
+
+private:
+  Connection &terminal_a;
+  Connection &terminal_b;
 };
 
 class Network {
@@ -29,7 +34,7 @@ public:
 
 class Battery : public Component {
 public:
-  Battery(std::string name, double voltage, Connection terminal_a,
+  Battery(std::string const &name, double voltage, Connection terminal_a,
           Connection terminal_b);
   double const get_current();
   void run_tick();
@@ -37,7 +42,7 @@ public:
 
 class Resistor : public Component {
 public:
-  Resistor(std::string name, double resistance, Connection terminal_a,
+  Resistor(std::string const &name, double resistance, Connection terminal_a,
            Connection terminal_b);
   double const get_current();
   void run_tick();
@@ -45,7 +50,7 @@ public:
 
 class Capacitor : public Component {
 public:
-  Capacitor(std::string name, double capacitance, Connection terminal_a,
+  Capacitor(std::string const &name, double capacitance, Connection terminal_a,
             Connection terminal_b);
   double const get_current();
   void run_tick();

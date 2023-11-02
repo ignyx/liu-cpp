@@ -11,7 +11,8 @@ struct Connection {
 class Component {
 public:
   Component(std::string const &name, Connection &terminal_a,
-            Connection &terminal_b);
+            Connection &terminal_b)
+      : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {};
   double const get_voltage();
   virtual double const get_current();
   virtual void run_step(const double time);
@@ -25,6 +26,7 @@ private:
 
 class Network {
 public:
+  Network() : components{} {};
   void simulate(unsigned int interations, unsigned int lines, double time_step);
   std::vector<Component> const &get_components();
   void add_component(Component &component);
@@ -37,7 +39,8 @@ private:
 class Battery : public Component {
 public:
   Battery(std::string const &name, double voltage, Connection terminal_a,
-          Connection terminal_b);
+          Connection terminal_b)
+      : Component{name, terminal_a, terminal_b}, voltage{voltage} {};
   void run_step(const double time);
 
 private:
@@ -47,7 +50,8 @@ private:
 class Resistor : public Component {
 public:
   Resistor(std::string const &name, double resistance, Connection terminal_a,
-           Connection terminal_b);
+           Connection terminal_b)
+      : Component{name, terminal_a, terminal_b}, resistance{resistance} {};
   double const get_current();
   void run_step(const double time);
 
@@ -58,7 +62,8 @@ private:
 class Capacitor : public Component {
 public:
   Capacitor(std::string const &name, double capacitance, Connection terminal_a,
-            Connection terminal_b);
+            Connection terminal_b)
+      : Component{name, terminal_a, terminal_b}, capacitance{capacitance} {};
   double const get_current();
   void run_step(const double time);
 

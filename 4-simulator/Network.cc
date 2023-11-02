@@ -11,7 +11,7 @@ std::string const &Component::get_name() { return name; }
 
 void Network::add_component(Component &component) {
   components.push_back(component);
-};
+}
 
 double Component::get_current() { return 0; }
 

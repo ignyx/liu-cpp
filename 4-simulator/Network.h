@@ -13,13 +13,15 @@ public:
   Component(std::string const &name, Connection &terminal_a,
             Connection &terminal_b)
       : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {};
-  double const get_voltage();
-  virtual double const get_current();
+  double get_voltage();
+  virtual double get_current();
   virtual void run_step(const double time);
   std::string const &get_name();
 
 private:
   std::string name;
+
+protected:
   Connection &terminal_a;
   Connection &terminal_b;
 };
@@ -28,7 +30,7 @@ class Network {
 public:
   Network() : components{} {};
   void simulate(unsigned int interations, unsigned int lines, double time_step);
-  std::vector<Component> const &get_components();
+  std::vector<Component> &get_components();
   void add_component(Component &component);
   // deallocate ?
 private:
@@ -52,7 +54,7 @@ public:
   Resistor(std::string const &name, double resistance, Connection terminal_a,
            Connection terminal_b)
       : Component{name, terminal_a, terminal_b}, resistance{resistance} {};
-  double const get_current();
+  double get_current();
   void run_step(const double time);
 
 private:
@@ -63,8 +65,9 @@ class Capacitor : public Component {
 public:
   Capacitor(std::string const &name, double capacitance, Connection terminal_a,
             Connection terminal_b)
-      : Component{name, terminal_a, terminal_b}, capacitance{capacitance} {};
-  double const get_current();
+      : Component{name, terminal_a, terminal_b}, capacitance{capacitance},
+        stored_charge{0} {};
+  double get_current();
   void run_step(const double time);
 
 private:

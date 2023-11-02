@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double const Component::get_voltage() {
+double Component::get_voltage() {
   return terminal_b.potential - terminal_a.potential;
 }
 
@@ -13,11 +13,11 @@ void Network::add_component(Component &component) {
   components.push_back(component);
 };
 
-double const Component::get_current() { return 0; }
+double Component::get_current() { return 0; }
 
-double const Resistor::get_current() { return get_voltage() / resistance; }
+double Resistor::get_current() { return get_voltage() / resistance; }
 
-double const Capacitor::get_current() {
+double Capacitor::get_current() {
   return capacitance * (get_voltage() - stored_charge);
 }
 

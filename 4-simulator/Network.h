@@ -30,6 +30,8 @@ public:
   std::vector<Component> const &get_components();
   void add_component(Component component);
   // deallocate ?
+private:
+  std::vector<Component> components;
 };
 
 class Battery : public Component {
@@ -38,6 +40,9 @@ public:
           Connection terminal_b);
   double const get_current();
   void run_tick();
+
+private:
+  const double voltage;
 };
 
 class Resistor : public Component {
@@ -46,6 +51,9 @@ public:
            Connection terminal_b);
   double const get_current();
   void run_tick();
+
+private:
+  const double resistance;
 };
 
 class Capacitor : public Component {
@@ -54,6 +62,10 @@ public:
             Connection terminal_b);
   double const get_current();
   void run_tick();
+
+private:
+  const double capacitance;
+  double stored_charge;
 };
 
 #endif // NETWORK_H

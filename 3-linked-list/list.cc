@@ -10,8 +10,6 @@
 // unnecessarily Calling size() to determine the last index and then iterating
 // through the list is not effecient.
 //
-// TODO: Complementary work: Initialize variables with {} not =
-//
 // TODO:  Complementary work needed: Don’t use insert() in copy/move, you know
 // that the list is already sorted and will take unnecessary time.
 //
@@ -29,9 +27,9 @@ List::List(std::initializer_list<int> list) : first(nullptr) {
 
 // destructor
 List::~List() {
-  Element *current = first;
+  Element *current{first};
   while (current != nullptr) {
-    Element *temp = current;
+    Element *temp{current};
     current = current->next;
     delete temp;
   }
@@ -39,7 +37,7 @@ List::~List() {
 
 // insert the given value at the right place in the list
 void List::insert(int value) {
-  Element *new_element = new Element(value);
+  Element *new_element{new Element(value)};
   // TODO: These are doing the same thing
   if (first == nullptr) {
     first = new_element;
@@ -50,7 +48,7 @@ void List::insert(int value) {
     return;
   }
 
-  Element *current_element = first;
+  Element *current_element{first};
   while (current_element->next != nullptr and
          current_element->next->value < value) {
     current_element = current_element->next;
@@ -61,7 +59,7 @@ void List::insert(int value) {
 
 // copy constructor
 List::List(const List &other) : first(nullptr) {
-  Element *current_element = other.first;
+  Element *current_element{other.first};
   while (current_element != nullptr) {
     insert(current_element->value);
 
@@ -117,20 +115,20 @@ void List::delete_element_with_rank(int target_rank) {
   if (first == nullptr or target_rank >= size()) {
     return;
   } else if (target_rank == 0) {
-    Element *temp = first;
+    Element *temp{first};
     first = first->next;
     delete temp;
   }
 
   int current_rank{0};
 
-  Element *current_element = first;
+  Element *current_element{first};
   while (current_element->next != nullptr and current_rank + 1 != target_rank) {
     current_element = current_element->next;
     current_rank++;
   }
   if (current_element->next != nullptr) {
-    Element *temp = current_element->next;
+    Element *temp{current_element->next};
     current_element->next = current_element->next->next;
     delete temp;
   }
@@ -141,19 +139,19 @@ void List::delete_element_with_value(int value) {
   if (first == nullptr) {
     return;
   } else if (first->value == value) {
-    Element *temp = first;
+    Element *temp{first};
     first = first->next;
     delete temp;
     return;
   }
 
-  Element *current_element = first;
+  Element *current_element{first};
   while (current_element->next != nullptr and
          current_element->next->value != value) {
     current_element = current_element->next;
   }
   if (current_element->next != nullptr) {
-    Element *temp = current_element->next;
+    Element *temp{current_element->next};
     current_element->next = current_element->next->next;
     delete temp;
   }
@@ -195,16 +193,16 @@ List &List::operator=(List const &other) {
     return *this;
 
   // delete this' elements
-  Element *current = first;
+  Element *current{first};
   while (current != nullptr) {
-    Element *temp = current;
+    Element *temp{current};
     current = current->next;
     delete temp;
   }
   first = nullptr;
 
   // deep copy new elements
-  Element *current_element = other.first;
+  Element *current_element{other.first};
   while (current_element != nullptr) {
     insert(current_element->value);
 
@@ -219,9 +217,9 @@ List &List::operator=(List &&other) {
   if (first == other.first)
     return *this;
 
-  Element *current = first;
+  Element *current{first};
   while (current != nullptr) {
-    Element *temp = current;
+    Element *temp{current};
     current = current->next;
     delete temp;
   }

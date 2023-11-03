@@ -3,6 +3,13 @@
 #include <initializer_list>
 #include <iostream>
 
+// TODO: Complementary work needed: Functions that doesn't modify the
+// list should be declared const.
+//
+// TODO: Complementary work needed: The list should contain ints, and not double.
+//
+// TODO: Complementary work needed: Missing print member function.
+
 struct Element {
   double value;
   Element *next;

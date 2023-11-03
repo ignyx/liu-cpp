@@ -4,6 +4,20 @@
 #include <iostream>
 #include <string>
 
+// TODO: Complementary work needed: Do not repeat similar code
+
+// TODO: Complementary work needed: Do not iterate through the list unnecessarily
+// Calling size() to determine the last index and then iterating through
+// the list is not effecient.
+//
+// TODO: Complementary work: Initialize variables with {} not =
+//
+// TODO:  Complementary work needed: Don’t use insert() in copy/move, you know
+// that the list is already sorted and will take unnecessary time.
+//
+// TODO:  Complementary work needed: delete_element_with_rank can cause
+// segfault if it enters the first else-branch, and deletes the only node.
+//
 using namespace std;
 
 // construcor, allow multiple values
@@ -26,6 +40,7 @@ List::~List() {
 // insert the given value at the right place in the list
 void List::insert(double value) {
   Element *new_element = new Element(value);
+  // TODO: These are doing the same thing
   if (first == nullptr) {
     first = new_element;
     return;

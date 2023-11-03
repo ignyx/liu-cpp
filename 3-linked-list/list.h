@@ -3,8 +3,6 @@
 #include <initializer_list>
 #include <iostream>
 
-// TODO: Complementary work needed: Missing print member function.
-
 struct Element {
   int value;
   Element *next;
@@ -31,7 +29,7 @@ public:
   int size() const;
   bool is_empty() const;
   std::string to_string() const;
+  void print() const;
 };
 
-std::ostream &operator<<(std::ostream &os, List const &list);
 #endif

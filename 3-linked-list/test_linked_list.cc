@@ -239,17 +239,11 @@ TEST_CASE("List : move constructor") {
 TEST_CASE("List : display non-empty list") {
   List list_a{3, 1, -43, 0, 0};
 
-  // fake cout
-  std::ostringstream oss{};
-  oss << list_a << std::flush;
-  CHECK(oss.str() == "-43 0 0 1 3");
+  CHECK(list_a.to_string() == "-43 0 0 1 3");
 }
 
 TEST_CASE("List : display empty list") {
   List list_a{};
 
-  // fake cout
-  std::ostringstream oss{};
-  oss << list_a << std::flush;
-  CHECK(oss.str() == "");
+  CHECK(list_a.to_string() == "");
 }

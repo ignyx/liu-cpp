@@ -174,10 +174,7 @@ string List::to_string() const {
 }
 
 // recursively display a linked list of elements
-ostream &operator<<(ostream &os, List const &list) {
-  os << list.to_string();
-  return os;
-}
+void List::print() const { cout << to_string(); }
 
 int List::size() const {
   int count{0};

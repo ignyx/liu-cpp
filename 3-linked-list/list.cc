@@ -6,9 +6,9 @@
 
 // TODO: Complementary work needed: Do not repeat similar code
 
-// TODO: Complementary work needed: Do not iterate through the list unnecessarily
-// Calling size() to determine the last index and then iterating through
-// the list is not effecient.
+// TODO: Complementary work needed: Do not iterate through the list
+// unnecessarily Calling size() to determine the last index and then iterating
+// through the list is not effecient.
 //
 // TODO: Complementary work: Initialize variables with {} not =
 //
@@ -21,8 +21,8 @@
 using namespace std;
 
 // construcor, allow multiple values
-List::List(std::initializer_list<double> list) : first(nullptr) {
-  for (double value : list) {
+List::List(std::initializer_list<int> list) : first(nullptr) {
+  for (int value : list) {
     insert(value);
   }
 }
@@ -38,7 +38,7 @@ List::~List() {
 }
 
 // insert the given value at the right place in the list
-void List::insert(double value) {
+void List::insert(int value) {
   Element *new_element = new Element(value);
   // TODO: These are doing the same thing
   if (first == nullptr) {
@@ -73,7 +73,7 @@ List::List(const List &other) : first(nullptr) {
 List::List(List &&other) : first(other.first) { other.first = nullptr; }
 
 // return the value stocked at rank "target_rank", if not find, return 0
-double List::find_value_with_rank(int target_rank) {
+int List::find_value_with_rank(int target_rank) {
   if (target_rank < 0)
     return 0.0; // ideally would return an error
 
@@ -91,7 +91,7 @@ double List::find_value_with_rank(int target_rank) {
 
 // return the rank of the first apparence of a value, -1 if not found, begin at
 // 0
-int List::find_rank_with_value(double value) {
+int List::find_rank_with_value(int value) {
   if (first == nullptr) {
     return -1;
   } else if (first->value == value) {
@@ -137,7 +137,7 @@ void List::delete_element_with_rank(int target_rank) {
 }
 
 // do the same thing than the previous but with the value instead of the rank
-void List::delete_element_with_value(double value) {
+void List::delete_element_with_value(int value) {
   if (first == nullptr) {
     return;
   } else if (first->value == value) {

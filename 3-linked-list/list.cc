@@ -73,7 +73,7 @@ List::List(const List &other) : first(nullptr) {
 List::List(List &&other) : first(other.first) { other.first = nullptr; }
 
 // return the value stocked at rank "target_rank", if not find, return 0
-int List::find_value_with_rank(int target_rank) {
+int List::find_value_with_rank(int target_rank) const {
   if (target_rank < 0)
     return 0.0; // ideally would return an error
 
@@ -91,7 +91,7 @@ int List::find_value_with_rank(int target_rank) {
 
 // return the rank of the first apparence of a value, -1 if not found, begin at
 // 0
-int List::find_rank_with_value(int value) {
+int List::find_rank_with_value(int value) const {
   if (first == nullptr) {
     return -1;
   } else if (first->value == value) {
@@ -179,7 +179,7 @@ ostream &operator<<(ostream &os, List const &list) {
   return os;
 }
 
-int List::size() {
+int List::size() const {
   int count{0};
   Element *current{first};
   while (current != nullptr) {
@@ -189,7 +189,7 @@ int List::size() {
   return count;
 }
 
-bool List::is_empty() { return first == nullptr; }
+bool List::is_empty() const { return first == nullptr; }
 
 // copy assignment operator
 List &List::operator=(List const &other) {

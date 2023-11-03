@@ -15,7 +15,7 @@ This should result in an `test_main.o` object file we can use during our tests.
 We can then compile and run the tests :
 
 ```
-g++ -o run_tests.out -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast test_main.o Time.cc test_time.cc
+g++ -o run_tests.out -std=c++17 -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast test_main.o list.cc test_linked_list.cc
 ./run_tests.out
 ```
 

@@ -75,7 +75,7 @@ List::List(List &&other) : first(other.first) { other.first = nullptr; }
 // return the value stocked at rank "target_rank", if not find, return 0
 int List::find_value_with_rank(int target_rank) const {
   if (target_rank < 0)
-    return 0.0; // ideally would return an error
+    return 0; // ideally would return an error
 
   int current_rank{0};
   Element *current_element{first};
@@ -86,7 +86,7 @@ int List::find_value_with_rank(int target_rank) const {
   }
   if (current_element != nullptr)
     return current_element->value;
-  return 0.0;
+  return 0;
 }
 
 // return the rank of the first apparence of a value, -1 if not found, begin at

@@ -5,17 +5,9 @@
 #include <string>
 
 // TODO: Complementary work needed: Do not repeat similar code
-
-// TODO: Complementary work needed: Do not iterate through the list
-// unnecessarily Calling size() to determine the last index and then iterating
-// through the list is not effecient.
 //
 // TODO:  Complementary work needed: Don’t use insert() in copy/move, you know
 // that the list is already sorted and will take unnecessary time.
-//
-// TODO:  Complementary work needed: delete_element_with_rank can cause
-// segfault if it enters the first else-branch, and deletes the only node.
-//
 using namespace std;
 
 // construcor, allow multiple values
@@ -110,24 +102,26 @@ int List::find_rank_with_value(int value) const {
 }
 
 // delete the Element at rank "target_rank", do nothing if rank bigger than the
-// list size, may have return a boolean but flemme
+// list size
 void List::delete_element_with_rank(int target_rank) {
-  if (first == nullptr or target_rank >= size()) {
+  if (first == nullptr or target_rank < 0)
     return;
-  } else if (target_rank == 0) {
+  else if (target_rank == 0) {
     Element *temp{first};
     first = first->next;
     delete temp;
+    return;
   }
-
-  int current_rank{0};
 
   Element *current_element{first};
-  while (current_element->next != nullptr and current_rank + 1 != target_rank) {
+  int next_rank{1};
+
+  while (current_element->next != nullptr and next_rank < target_rank) {
     current_element = current_element->next;
-    current_rank++;
+    next_rank++;
   }
-  if (current_element->next != nullptr) {
+
+  if (current_element->next != nullptr and next_rank == target_rank) {
     Element *temp{current_element->next};
     current_element->next = current_element->next->next;
     delete temp;

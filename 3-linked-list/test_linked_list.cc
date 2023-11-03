@@ -161,6 +161,13 @@ TEST_CASE("List : delete element with rank") {
   CHECK(list_a.find_value_with_rank(0) == 0);
   CHECK(list_a.find_value_with_rank(1) == 1);
   CHECK(list_a.size() == 2);
+
+  List list_b{};
+
+  CHECK(list_b.size() == 0);
+  list_b.delete_element_with_rank(0);
+  list_b.delete_element_with_rank(1);
+  list_b.delete_element_with_rank(-1);
 }
 
 TEST_CASE("List : delete element with values") {

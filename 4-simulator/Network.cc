@@ -17,6 +17,18 @@ void Network::add_component(Component &component) {
   components.push_back(component);
 }
 
+std::vector<Component> &Network::get_components(){
+    return components;
+}
+
+void Network::simulate(unsigned int iterations, unsigned int lines, double time_step){
+    for(unsigned int i=0; i< iterations; i++){
+        for(int j=0; j< components.size(); j++){
+            components[i].run_step(time_step);
+        }
+    }
+}
+
 double Resistor::get_current() { return get_voltage() / resistance; }
 
 void Resistor::run_step(const double time) {
@@ -35,3 +47,9 @@ void Capacitor::run_step(const double time) {
   terminal_a.potential = terminal_a.potential + charge_difference;
   terminal_b.potential = terminal_b.potential - charge_difference;
 }
+
+void Battery::run_step(const double time) {
+  terminal_a.potential = voltage;
+  terminal_b.potential = 0;
+}
+

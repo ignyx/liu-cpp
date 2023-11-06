@@ -30,11 +30,7 @@ List::~List() {
 // insert the given value at the right place in the list
 void List::insert(int value) {
   Element *new_element{new Element(value)};
-  // TODO: These are doing the same thing
-  if (first == nullptr) {
-    first = new_element;
-    return;
-  } else if (value < first->value) {
+  if (first == nullptr or value < first->value) {
     new_element->next = first;
     first = new_element;
     return;
@@ -49,11 +45,25 @@ void List::insert(int value) {
   current_element->next = new_element;
 }
 
+// insert the given value at the end of the list
+void List::push_back(int value) {
+  Element *new_element{new Element(value)};
+  if (first == nullptr) {
+    first = new_element;
+  } else {
+    Element* current = first;
+    while (current->next != nullptr) {
+      current = current->next;
+    }
+    current->next = new_element;
+  }
+}
+
 // copy constructor
 List::List(const List &other) : first(nullptr) {
   Element *current_element{other.first};
   while (current_element != nullptr) {
-    insert(current_element->value);
+    push_back(current_element->value);
 
     current_element = current_element->next;
   }
@@ -198,7 +208,7 @@ List &List::operator=(List const &other) {
   // deep copy new elements
   Element *current_element{other.first};
   while (current_element != nullptr) {
-    insert(current_element->value);
+    push_back(current_element->value);
 
     current_element = current_element->next;
   }

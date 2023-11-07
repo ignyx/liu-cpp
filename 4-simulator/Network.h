@@ -31,7 +31,7 @@ class Network {
 public:
   Network() : components{} {};
   void simulate(unsigned int interations, unsigned int lines, double time_step);
-  std::vector<Component> &get_components() const;
+  std::vector<Component> &get_components();
   void add_component(Component &component);
   // deallocate ?
 private:

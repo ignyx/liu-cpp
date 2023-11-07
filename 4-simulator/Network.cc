@@ -59,6 +59,6 @@ void Capacitor::run_step(const double time) {
 }
 
 void Battery::run_step(const double) {
-  terminal_a.potential = voltage;
-  terminal_b.potential = 0;
+  terminal_a.potential = 0;
+  terminal_b.potential = voltage;
 }

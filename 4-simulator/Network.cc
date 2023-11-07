@@ -1,4 +1,6 @@
 #include "Network.h"
+#include <iomanip>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -19,20 +21,21 @@ void Network::add_component(Component &component) {
 
 std::vector<Component> &Network::get_components() { return components; }
 
-void Network::simulate(unsigned int iterations, unsigned int lines, double time_step){
-  for(int j=0; j< components.size(); j++){
+void Network::simulate(unsigned int iterations, unsigned int lines,
+                       double time_step) {
+  for (int j = 0; j < components.size(); j++) {
     cout << setfill(' ') << right << setw(24) << components[j].get_name();
   }
   cout << endl;
-  for(unsigned int i=0; i< iterations; i++){
-      for(int j=0; j< components.size(); j++){
-          components[j].run_step(time_step);
-          if(i%(iterations/lines)==0 ){
-            cout << setfill(' ') << right << setw(12) << components[j].get_current() << setw(12) << components[j].get_voltage();
-          }
-          
+  for (unsigned int i = 0; i < iterations; i++) {
+    for (int j = 0; j < components.size(); j++) {
+      components[j].run_step(time_step);
+      if (i % (iterations / lines) == 0) {
+        cout << setfill(' ') << right << setw(12) << components[j].get_current()
+             << setw(12) << components[j].get_voltage();
       }
-      cout << endl;
+    }
+    cout << endl;
   }
 }
 
@@ -55,7 +58,7 @@ void Capacitor::run_step(const double time) {
   terminal_b.potential = terminal_b.potential - charge_difference;
 }
 
-void Battery::run_step(const double time) {
+void Battery::run_step(const double) {
   terminal_a.potential = voltage;
   terminal_b.potential = 0;
 }

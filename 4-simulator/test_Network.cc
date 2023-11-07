@@ -71,7 +71,7 @@ TEST_CASE("Battery") {
 TEST_CASE("Resistor") {
   Connection connection_a{5.0};
   Connection connection_b{9.0};
-  Resistor resistor = Resistor("Bat", 2.0, connection_a, connection_b);
+  Resistor resistor = Resistor("R1", 2.0, connection_a, connection_b);
 
   CHECK(resistor.get_voltage() == 4.0);
   CHECK(resistor.get_current() == 2.0);
@@ -79,5 +79,24 @@ TEST_CASE("Resistor") {
   // Resistor should move 4.0 / 2.0 * 0.1 charges from b to a
   CHECK(resistor.get_voltage() == Approx(3.8));
   CHECK(resistor.get_current() == Approx(1.8));
-  CHECK(resistor.get_name() == "Bat");
+  CHECK(resistor.get_name() == "R1");
+}
+
+TEST_CASE("Capacitor") {
+  Connection connection_a{5.0};
+  Connection connection_b{9.0};
+  Capacitor capacitor = Capacitor("Capa", 0.8, connection_a, connection_b);
+
+  CHECK(capacitor.get_voltage() == 4.0);
+  // Current = 0.8 * (4.0 - 0.0)
+  CHECK(capacitor.get_current() == 3.2);
+  // Current charge : 0.0
+  capacitor.run_step(0.1);
+  // Capacitor should move 0.8 * (4.0-0.0) * 0.1 charge from b to storage and a
+  // charge at connection_a = 5.32
+  // charge at connection_b = 8.68
+  CHECK(capacitor.get_voltage() == Approx(4.64));
+  // Current = 0.8 * (4.64 - 0.32)
+  CHECK(capacitor.get_current() == Approx(3.456));
+  CHECK(capacitor.get_name() == "Capa");
 }

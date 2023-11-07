@@ -51,7 +51,7 @@ void List::push_back(int value) {
   if (first == nullptr) {
     first = new_element;
   } else {
-    Element* current = first;
+    Element *current = first;
     while (current->next != nullptr) {
       current = current->next;
     }

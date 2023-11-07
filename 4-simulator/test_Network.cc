@@ -45,12 +45,39 @@ TEST_CASE("Component : get_name") {
   CHECK(component_c.get_name() == "component_c");
 }
 
-// TEST_CASE("Component : run_step should do nothing") {
-//   Connection connection_a{5.0};
-//   Connection connection_b{2.0};
-//   Component component = Component("component_a", connection_a, connection_a);
-//
-//   CHECK(component.get_voltage() == 3.0);
-//   component.run_step(1.0);
-//   CHECK(component.get_voltage() == 3.0);
-// }
+TEST_CASE("Component : run_step should do nothing") {
+  Connection connection_a{5.0};
+  Connection connection_b{2.0};
+  Component component = Component("component_a", connection_b, connection_a);
+
+  CHECK(component.get_voltage() == 3.0);
+  component.run_step(1.0);
+  CHECK(component.get_voltage() == 3.0);
+}
+
+TEST_CASE("Battery") {
+  Connection connection_a{0.0};
+  Connection connection_b{5.0};
+  Battery battery = Battery("Bat", 5.0, connection_a, connection_b);
+
+  CHECK(battery.get_voltage() == 5.0);
+  CHECK(battery.get_current() == 0.0);
+  battery.run_step(1.0);
+  CHECK(battery.get_voltage() == 5.0);
+  CHECK(battery.get_current() == 0.0);
+  CHECK(battery.get_name() == "Bat");
+}
+
+TEST_CASE("Resistor") {
+  Connection connection_a{5.0};
+  Connection connection_b{9.0};
+  Resistor resistor = Resistor("Bat", 2.0, connection_a, connection_b);
+
+  CHECK(resistor.get_voltage() == 4.0);
+  CHECK(resistor.get_current() == 2.0);
+  resistor.run_step(0.1);
+  // Resistor should move 4.0 / 2.0 * 0.1 charges from b to a
+  CHECK(resistor.get_voltage() == Approx(3.8));
+  CHECK(resistor.get_current() == Approx(1.8));
+  CHECK(resistor.get_name() == "Bat");
+}

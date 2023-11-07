@@ -19,12 +19,20 @@ void Network::add_component(Component &component) {
 
 std::vector<Component> &Network::get_components() { return components; }
 
-void Network::simulate(unsigned int iterations, unsigned int lines,
-                       double time_step) {
-  for (unsigned int i = 0; i < iterations; i++) {
-    for (int j = 0; j < components.size(); j++) {
-      components[i].run_step(time_step);
-    }
+void Network::simulate(unsigned int iterations, unsigned int lines, double time_step){
+  for(int j=0; j< components.size(); j++){
+    cout << setfill(' ') << right << setw(24) << components[j].get_name();
+  }
+  cout << endl;
+  for(unsigned int i=0; i< iterations; i++){
+      for(int j=0; j< components.size(); j++){
+          components[j].run_step(time_step);
+          if(i%(iterations/lines)==0 ){
+            cout << setfill(' ') << right << setw(12) << components[j].get_current() << setw(12) << components[j].get_voltage();
+          }
+          
+      }
+      cout << endl;
   }
 }
 

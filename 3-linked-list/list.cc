@@ -4,10 +4,6 @@
 #include <iostream>
 #include <string>
 
-// TODO: Complementary work needed: Do not repeat similar code
-//
-// TODO:  Complementary work needed: Don’t use insert() in copy/move, you know
-// that the list is already sorted and will take unnecessary time.
 using namespace std;
 
 // construcor, allow multiple values
@@ -45,27 +41,24 @@ void List::insert(int value) {
   current_element->next = new_element;
 }
 
-// insert the given value at the end of the list
-void List::push_back(int value) {
-  Element *new_element{new Element(value)};
-  if (first == nullptr) {
-    first = new_element;
-  } else {
-    Element *current = first;
-    while (current->next != nullptr) {
-      current = current->next;
-    }
-    current->next = new_element;
+// helper function
+void deep_copy(Element *current_source, Element *current_copy) {
+  while (current_source->next != nullptr) {
+    current_copy->next = new Element(current_source->next->value);
+
+    current_source = current_source->next;
+    current_copy = current_copy->next;
   }
 }
 
 // copy constructor
 List::List(const List &other) : first(nullptr) {
-  Element *current_element{other.first};
-  while (current_element != nullptr) {
-    push_back(current_element->value);
+  if (other.first != nullptr) {
+    Element *current_source{other.first};
+    Element *current_copy{new Element(other.first->value)};
 
-    current_element = current_element->next;
+    deep_copy(current_source, current_copy);
+    first = current_copy;
   }
 }
 
@@ -111,6 +104,12 @@ int List::find_rank_with_value(int value) const {
   return rank;
 }
 
+void delete_next_element(Element *element) {
+  Element *temp{element->next};
+  element->next = element->next->next;
+  delete temp;
+}
+
 // delete the Element at rank "target_rank", do nothing if rank bigger than the
 // list size
 void List::delete_element_with_rank(int target_rank) {
@@ -132,9 +131,7 @@ void List::delete_element_with_rank(int target_rank) {
   }
 
   if (current_element->next != nullptr and next_rank == target_rank) {
-    Element *temp{current_element->next};
-    current_element->next = current_element->next->next;
-    delete temp;
+    delete_next_element(current_element);
   }
 }
 
@@ -155,9 +152,7 @@ void List::delete_element_with_value(int value) {
     current_element = current_element->next;
   }
   if (current_element->next != nullptr) {
-    Element *temp{current_element->next};
-    current_element->next = current_element->next->next;
-    delete temp;
+    delete_next_element(current_element);
   }
 }
 
@@ -175,7 +170,7 @@ string List::to_string() const {
     return element_to_string(first);
 }
 
-// recursively display a linked list of elements
+// display a linked list of elements
 void List::print() const { cout << to_string(); }
 
 int List::size() const {
@@ -188,6 +183,15 @@ int List::size() const {
   return count;
 }
 
+// helper function
+void delete_list(Element *element) {
+  while (element != nullptr) {
+    Element *temp{element};
+    element = element->next;
+    delete temp;
+  }
+}
+
 bool List::is_empty() const { return first == nullptr; }
 
 // copy assignment operator
@@ -196,22 +200,14 @@ List &List::operator=(List const &other) {
   if (first == other.first)
     return *this;
 
-  // delete this' elements
-  Element *current{first};
-  while (current != nullptr) {
-    Element *temp{current};
-    current = current->next;
-    delete temp;
-  }
+  delete_list(first);
   first = nullptr;
 
-  // deep copy new elements
-  Element *current_element{other.first};
-  while (current_element != nullptr) {
-    push_back(current_element->value);
-
-    current_element = current_element->next;
+  if (other.first != nullptr) {
+    first = new Element(other.first->value);
+    deep_copy(other.first, first);
   }
+
   return *this;
 }
 
@@ -221,15 +217,8 @@ List &List::operator=(List &&other) {
   if (first == other.first)
     return *this;
 
-  Element *current{first};
-  while (current != nullptr) {
-    Element *temp{current};
-    current = current->next;
-    delete temp;
-  }
-
+  delete_list(first);
   first = other.first;
-
   other.first = nullptr;
 
   return *this;

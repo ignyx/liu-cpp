@@ -55,7 +55,7 @@ TEST_CASE("List : copy constructor with list of length 1 ") {
   List list{1};
   List new_list{list};
 
-  CHECK(new_list.find_value_with_rank(5) == 0);
+  CHECK(new_list.find_value_with_rank(1) == 0);
   CHECK(new_list.find_value_with_rank(0) == 1);
   CHECK(new_list.size() == 1);
   CHECK_FALSE(new_list.is_empty());

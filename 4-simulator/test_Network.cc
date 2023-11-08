@@ -83,7 +83,7 @@ TEST_CASE("Resistor") {
   CHECK(resistor.get_name() == "R1");
 }
 
-TEST_CASE("Capacitor") {
+TEST_CASE("Capacitor : low a high b") {
   Connection connection_a{5.0};
   Connection connection_b{9.0};
   Capacitor capacitor = Capacitor("Capa", 0.8, connection_a, connection_b);
@@ -110,4 +110,33 @@ TEST_CASE("Capacitor") {
   CHECK(capacitor.get_voltage() == Approx(2.8736));
   // Current = 0.8 * (2.8736 - 0.5632)
   CHECK(capacitor.get_current() == Approx(1.84832));
+}
+
+TEST_CASE("Capacitor : low b high a") {
+  Connection connection_a{9.0};
+  Connection connection_b{5.0};
+  Capacitor capacitor = Capacitor("Capa", 0.8, connection_a, connection_b);
+
+  CHECK(capacitor.get_voltage() == -4.0);
+  // Current = 0.8 * (4.0 - 0.0)
+  CHECK(capacitor.get_current() == -3.2);
+  // Current charge : 0.0
+  capacitor.run_step(0.1);
+  // Capacitor should move 0.8 * (4.0-0.0) * 0.1 charge from b to storage and a
+  // charge at connection_b = 5.32
+  // charge at connection_a = 8.68
+  // stored = -0.32
+  CHECK(capacitor.get_voltage() == Approx(-3.36));
+  // Current = 0.8 * (-3.36 - -0.32)
+  CHECK(capacitor.get_current() == Approx(-2.432));
+  CHECK(capacitor.get_name() == "Capa");
+
+  capacitor.run_step(0.1);
+  // Capacitor should move 0.8 * (-3.36--0.32) * 0.1 charge
+  // charge at connection_a = 5.5632
+  // charge at connection_b = 8.4368
+  // stored = -0.5632
+  CHECK(capacitor.get_voltage() == Approx(-2.8736));
+  // Current = 0.8 * (-2.8736 - -0.5632)
+  CHECK(capacitor.get_current() == Approx(-1.84832));
 }

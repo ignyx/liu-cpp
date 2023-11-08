@@ -15,11 +15,13 @@ void Component::run_step(const double) {}
 
 std::string const &Component::get_name() const { return name; }
 
-void Network::add_component(Component &component) {
-  components.push_back(component);
+void Network::add_component(Component *new_component) {
+  components.push_back(new_component);
 }
 
-std::vector<Component> &Network::get_components() { return components; }
+std::vector<Component*> &Network::get_components(){
+    return components;
+}
 
 void Network::simulate(unsigned int iterations, unsigned int lines, double time_step){
   for(int j=0; j< components.size(); j++){

@@ -23,21 +23,29 @@ std::vector<Component *> &Network::get_components() { return components; }
 
 void Network::simulate(unsigned int iterations, unsigned int lines,
                        double time_step) {
-  for (int j = 0; j < components.size(); j++) {
-    Component *temp = components[j];
-    cout << setfill(' ') << left << setw(24) << temp->get_name();
+  for (Component *component : components) {
+    cout << left << setw(24) << component->get_name();
   }
   cout << endl;
-  for (unsigned int i = 0; i < iterations; i++) {
-    for (Component *j : components) {
-      j->run_step(time_step);
 
-      if (i % (iterations / lines) == 0) {
-        cout << setfill(' ') << right << setw(12) << j->get_current()
-             << setw(12) << j->get_voltage();
+  cout << setfill(' ') << fixed << setprecision(2);
+
+  const unsigned int iterations_between_lines = iterations / lines;
+
+  for (unsigned int i = 0; i < iterations; i++) {
+    const bool lign_shown{i % iterations_between_lines ==
+                          iterations_between_lines - 1};
+
+    for (Component *component : components) {
+      component->run_step(time_step);
+
+      if (lign_shown) {
+        cout << right << setw(12) << component->get_voltage() << setw(12)
+             << component->get_current();
       }
     }
-    cout << endl;
+    if (lign_shown)
+      cout << endl;
   }
 }
 

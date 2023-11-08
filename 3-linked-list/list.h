@@ -3,24 +3,14 @@
 #include <initializer_list>
 #include <iostream>
 
-// TODO: Complementary work needed: The Node type should be invisible and
-// inaccessible to programmers that use the list.
-// From assignment:
-// “The link class and any functions pertaining to it should thus be stashed
-// away and be inaccessible to the programmer.”
-//
-struct Element {
-  int value;
-  Element *next;
-  Element(int value) : value(value), next(nullptr) {}
-};
+struct Element;
 
 class List {
 private:
   Element *first;
 
 public:
-  List() : first(nullptr){};
+  List();
   List(std::initializer_list<int> List);
   List(const List &other);
   List(List &&other);

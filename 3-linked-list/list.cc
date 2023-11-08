@@ -6,6 +6,15 @@
 
 using namespace std;
 
+
+struct Element {
+  int value;
+  Element *next;
+  Element(int value) : value(value), next(nullptr) {}
+};
+
+List::List() : first(nullptr) {}
+
 // construcor, allow multiple values
 List::List(std::initializer_list<int> list) : first(nullptr) {
   for (int value : list) {

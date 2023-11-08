@@ -96,8 +96,18 @@ TEST_CASE("Capacitor") {
   // Capacitor should move 0.8 * (4.0-0.0) * 0.1 charge from b to storage and a
   // charge at connection_a = 5.32
   // charge at connection_b = 8.68
-  CHECK(capacitor.get_voltage() == Approx(4.64));
-  // Current = 0.8 * (4.64 - 0.32)
-  CHECK(capacitor.get_current() == Approx(3.456));
+  // stored = 0.32
+  CHECK(capacitor.get_voltage() == Approx(3.36));
+  // Current = 0.8 * (3.36 - 0.32)
+  CHECK(capacitor.get_current() == Approx(2.432));
   CHECK(capacitor.get_name() == "Capa");
+
+  capacitor.run_step(0.1);
+  // Capacitor should move 0.8 * (3.36-0.32) * 0.1 charge
+  // charge at connection_a = 5.5632
+  // charge at connection_b = 8.4368
+  // stored = 0.5632
+  CHECK(capacitor.get_voltage() == Approx(2.8736));
+  // Current = 0.8 * (2.8736 - 0.5632)
+  CHECK(capacitor.get_current() == Approx(1.84832));
 }

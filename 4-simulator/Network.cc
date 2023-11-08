@@ -52,7 +52,9 @@ double Capacitor::get_current() const {
 }
 
 void Capacitor::run_step(const double time) {
-  double charge_difference(capacitance * get_voltage() * time);
+  double charge_difference{capacitance * (get_voltage() - stored_charge) *
+                           time};
+
   stored_charge = stored_charge + charge_difference;
   terminal_a.potential = terminal_a.potential + charge_difference;
   terminal_b.potential = terminal_b.potential - charge_difference;

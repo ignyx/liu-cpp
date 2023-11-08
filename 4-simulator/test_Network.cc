@@ -94,9 +94,9 @@ TEST_CASE("Capacitor : low a high b") {
   // Current charge : 0.0
   capacitor.run_step(0.1);
   // Capacitor should move 0.8 * (4.0-0.0) * 0.1 charge from b to storage and a
-  // charge at connection_a = 5.32
-  // charge at connection_b = 8.68
   // stored = 0.32
+  CHECK(connection_a.potential == Approx(5.32));
+  CHECK(connection_b.potential == Approx(8.68));
   CHECK(capacitor.get_voltage() == Approx(3.36));
   // Current = 0.8 * (3.36 - 0.32)
   CHECK(capacitor.get_current() == Approx(2.432));
@@ -104,9 +104,9 @@ TEST_CASE("Capacitor : low a high b") {
 
   capacitor.run_step(0.1);
   // Capacitor should move 0.8 * (3.36-0.32) * 0.1 charge
-  // charge at connection_a = 5.5632
-  // charge at connection_b = 8.4368
   // stored = 0.5632
+  CHECK(connection_a.potential == Approx(5.5632));
+  CHECK(connection_b.potential == Approx(8.4368));
   CHECK(capacitor.get_voltage() == Approx(2.8736));
   // Current = 0.8 * (2.8736 - 0.5632)
   CHECK(capacitor.get_current() == Approx(1.84832));
@@ -123,9 +123,9 @@ TEST_CASE("Capacitor : low b high a") {
   // Current charge : 0.0
   capacitor.run_step(0.1);
   // Capacitor should move 0.8 * (4.0-0.0) * 0.1 charge from b to storage and a
-  // charge at connection_b = 5.32
-  // charge at connection_a = 8.68
   // stored = -0.32
+  CHECK(connection_a.potential == Approx(8.68));
+  CHECK(connection_b.potential == Approx(5.32));
   CHECK(capacitor.get_voltage() == Approx(-3.36));
   // Current = 0.8 * (-3.36 - -0.32)
   CHECK(capacitor.get_current() == Approx(-2.432));
@@ -133,10 +133,21 @@ TEST_CASE("Capacitor : low b high a") {
 
   capacitor.run_step(0.1);
   // Capacitor should move 0.8 * (-3.36--0.32) * 0.1 charge
-  // charge at connection_a = 5.5632
-  // charge at connection_b = 8.4368
   // stored = -0.5632
+  CHECK(connection_a.potential == Approx(8.4368));
+  CHECK(connection_b.potential == Approx(5.5632));
   CHECK(capacitor.get_voltage() == Approx(-2.8736));
   // Current = 0.8 * (-2.8736 - -0.5632)
   CHECK(capacitor.get_current() == Approx(-1.84832));
 }
+
+// TEST_CASE("Network") {
+//   Network circuit{};
+//   Connection connection_a, connection_b, connection_c;
+//   CHECK(circuit.get_components().size() == 0);
+//
+//   circuit.add_component(new Battery("Bat", 24.0, connection_a,
+//   connection_b)); circuit.add_component(new Resistor("R", 2.0, connection_b,
+//   connection_c)); circuit.add_component(new Capacitor("C", 0.8, connection_c,
+//   connection_a)); CHECK(circuit.get_components().size() == 3);
+// }

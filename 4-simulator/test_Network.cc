@@ -77,7 +77,8 @@ TEST_CASE("Resistor") {
   CHECK(resistor.get_current() == 2.0);
   resistor.run_step(0.1);
   // Resistor should move 4.0 / 2.0 * 0.1 charges from b to a
-  CHECK(resistor.get_voltage() == Approx(3.8));
+  // a : 5.2 ; b : 8.8
+  CHECK(resistor.get_voltage() == Approx(3.6));
   CHECK(resistor.get_current() == Approx(1.8));
   CHECK(resistor.get_name() == "R1");
 }

@@ -3,6 +3,12 @@
 #include <initializer_list>
 #include <iostream>
 
+// TODO: Complementary work needed: The Node type should be invisible and
+// inaccessible to programmers that use the list.
+// From assignment:
+// “The link class and any functions pertaining to it should thus be stashed
+// away and be inaccessible to the programmer.”
+//
 struct Element {
   int value;
   Element *next;

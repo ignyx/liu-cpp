@@ -31,5 +31,17 @@ int main(){
   circuit2.add_component(new Resistor("R2", 50.0, connection_1, connection_3));
   circuit2.add_component(new Resistor("R3", 100.0, connection_2, connection_3));
   circuit2.add_component(new Resistor("R4", 300.0, connection_2, connection_4));
-  circuit2.add_component(new Resistor("R4", 250.0, connection_3, connection_4));
+  circuit2.add_component(new Resistor("R5", 250.0, connection_3, connection_4));
+
+  Network circuit3 {};
+  Connection connection_1{0};
+  Connection connection_2{0};
+  Connection connection_3{0};
+  Connection connection_4{0};
+  circuit3.add_component(new Battery("Bat", 24.0, connection_4, connection_1));
+  circuit3.add_component(new Resistor("R1", 150.0, connection_1, connection_2));
+  circuit3.add_component(new Resistor("R2", 50.0, connection_1, connection_3));
+  circuit3.add_component(new Capacitor("C3", 1.0, connection_2, connection_3));
+  circuit3.add_component(new Resistor("R4", 300.0, connection_2, connection_4));
+  circuit3.add_component(new Capacitor("C5", 0.75 , connection_3, connection_4));
 }

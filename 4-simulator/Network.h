@@ -44,7 +44,7 @@ public:
   Battery(std::string const &name, double voltage, Connection &terminal_a,
           Connection &terminal_b)
       : Component{name, terminal_a, terminal_b}, voltage{voltage} {};
-  void run_step(const double time);
+  void run_step(const double time) override;
 
 private:
   const double voltage;
@@ -55,8 +55,8 @@ public:
   Resistor(std::string const &name, double resistance, Connection &terminal_a,
            Connection &terminal_b)
       : Component{name, terminal_a, terminal_b}, resistance{resistance} {};
-  double get_current() const;
-  void run_step(const double time);
+  double get_current() const override;
+  void run_step(const double time) override;
 
 private:
   const double resistance;
@@ -68,8 +68,8 @@ public:
             Connection &terminal_b)
       : Component{name, terminal_a, terminal_b}, capacitance{capacitance},
         stored_charge{0} {};
-  double get_current() const;
-  void run_step(const double time);
+  double get_current() const override;
+  void run_step(const double time) override;
 
 private:
   const double capacitance;

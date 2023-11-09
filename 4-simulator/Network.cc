@@ -23,12 +23,17 @@ std::vector<Component *> &Network::get_components() { return components; }
 
 void Network::simulate(unsigned int iterations, unsigned int lines,
                        double time_step) {
+  cout << setfill(' ') << fixed << setprecision(2);
+  
   for (Component *component : components) {
-    cout << left << setw(24) << component->get_name();
+    cout << left << setw(16) << component->get_name();
   }
   cout << endl;
-
-  cout << setfill(' ') << fixed << setprecision(2);
+  for (Component *component : components) {
+    cout << left << setw(8) << "Volt." <<setw(8) << "Curr." ;
+  }
+  cout << endl;
+  
 
   const unsigned int iterations_between_lines = iterations / lines;
 
@@ -40,7 +45,7 @@ void Network::simulate(unsigned int iterations, unsigned int lines,
       component->run_step(time_step);
 
       if (lign_shown) {
-        cout << right << setw(12) << component->get_voltage() << setw(12)
+        cout << right << setw(8) << component->get_voltage() << setw(8)
              << component->get_current();
       }
     }

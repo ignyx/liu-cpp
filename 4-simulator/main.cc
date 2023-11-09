@@ -26,10 +26,10 @@ void simulate_circuit1(unsigned int iterations, unsigned int lines,
   Connection connection_3{0};
   Connection connection_4{0};
   circuit1.add_component(new Battery("Bat", 24.0, connection_4, connection_1));
-  circuit1.add_component(new Resistor("R1", 6.0, connection_1, connection_2));
-  circuit1.add_component(new Resistor("R2", 4.0, connection_2, connection_3));
-  circuit1.add_component(new Resistor("R3", 8.0, connection_3, connection_4));
-  circuit1.add_component(new Resistor("R4", 12.0, connection_2, connection_4));
+  circuit1.add_component(new Resistor("R1", 6.0, connection_2, connection_1));
+  circuit1.add_component(new Resistor("R2", 4.0, connection_3, connection_2));
+  circuit1.add_component(new Resistor("R3", 8.0, connection_4, connection_3));
+  circuit1.add_component(new Resistor("R4", 12.0, connection_4, connection_2));
   circuit1.simulate(iterations, lines, time_step);
   // TODO delete
 }
@@ -42,11 +42,11 @@ void simulate_circuit2(unsigned int iterations, unsigned int lines,
   Connection connection_3{0};
   Connection connection_4{0};
   circuit2.add_component(new Battery("Bat", 24.0, connection_4, connection_1));
-  circuit2.add_component(new Resistor("R1", 150.0, connection_1, connection_2));
-  circuit2.add_component(new Resistor("R2", 50.0, connection_1, connection_3));
-  circuit2.add_component(new Resistor("R3", 100.0, connection_2, connection_3));
-  circuit2.add_component(new Resistor("R4", 300.0, connection_2, connection_4));
-  circuit2.add_component(new Resistor("R5", 250.0, connection_3, connection_4));
+  circuit2.add_component(new Resistor("R1", 150.0, connection_2, connection_1));
+  circuit2.add_component(new Resistor("R2", 50.0, connection_3, connection_1));
+  circuit2.add_component(new Resistor("R3", 100.0, connection_3, connection_2));
+  circuit2.add_component(new Resistor("R4", 300.0, connection_4, connection_2));
+  circuit2.add_component(new Resistor("R5", 250.0, connection_4, connection_3));
   circuit2.simulate(iterations, lines, time_step);
   // TODO delete
 }

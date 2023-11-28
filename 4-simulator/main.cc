@@ -1,3 +1,8 @@
+// TODO: Complementary work needed:
+// You have memory leaks, use valgrind to locate them. 
+//
+// Hint: Network objects take ownership of components but they have no destructor.
+
 #include "Network.h"
 #include <iomanip>
 #include <iostream>

@@ -1,3 +1,12 @@
+// TODO: Complementary work needed: Header files should not contain any
+// implementation.
+
+// TODO: Complementary work needed: Component can't implement get_current or
+// calculate in any meaningful way and they should therefore be pure virtual.
+
+// TODO: Complementary work needed: Use '{...}' instead of '=' to initialize
+// variables.
+
 #ifndef NETWORK_H
 #define NETWORK_H
 

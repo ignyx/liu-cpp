@@ -33,10 +33,9 @@ public:
   void simulate(unsigned int interations, unsigned int lines, double time_step);
   std::vector<Component *> &get_components();
   void add_component(Component *component);
-  // deallocate ?
+
 private:
   std::vector<Component *> components;
-  // connections ?
 };
 
 class Battery : public Component {

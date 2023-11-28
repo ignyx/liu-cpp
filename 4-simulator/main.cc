@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 
 void print_help(char *arg0) {
   cout << "usage: " << arg0 << " iterations lines step battery_voltage\n"
-       << "example: " << arg0 << " 2000000 10 0.01 24" << endl;
+       << "example: " << arg0 << " 200000 10 0.01 24" << endl;
 }
 
 void parse_arguments(char **argv, int &iterations, int &lines,

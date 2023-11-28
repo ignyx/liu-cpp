@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void print_help();
+void print_help(char *arg0);
 void parse_arguments(char **argv, int &iterations, int &lines,
                      double &time_step, double &battery_voltage);
 void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
@@ -18,7 +18,7 @@ void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
 
 int main(int argc, char **argv) {
   if (argc != 5) {
-    print_help();
+    print_help(argv[0]);
     exit(1);
   }
 
@@ -32,7 +32,10 @@ int main(int argc, char **argv) {
   simulate_circuit3(iterations, lines, time_step, battery_voltage);
 }
 
-void print_help() { cout << "help" << endl; }
+void print_help(char *arg0) {
+  cout << "usage: " << arg0 << " iterations lines step battery_voltage\n"
+       << "example: " << arg0 << " 2000000 10 0.01 24" << endl;
+}
 
 void parse_arguments(char **argv, int &iterations, int &lines,
                      double &time_step, double &battery_voltage) {
@@ -121,7 +124,6 @@ void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
   circuit1.add_component(new Resistor("R3", 8.0, connection_4, connection_3));
   circuit1.add_component(new Resistor("R4", 12.0, connection_4, connection_2));
   circuit1.simulate(iterations, lines, time_step);
-  // TODO delete
 }
 
 void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
@@ -139,7 +141,6 @@ void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
   circuit2.add_component(new Resistor("R4", 300.0, connection_4, connection_2));
   circuit2.add_component(new Resistor("R5", 250.0, connection_4, connection_3));
   circuit2.simulate(iterations, lines, time_step);
-  // TODO delete
 }
 
 void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
@@ -157,5 +158,4 @@ void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
   circuit3.add_component(new Resistor("R4", 300.0, connection_4, connection_2));
   circuit3.add_component(new Capacitor("C5", 0.75, connection_4, connection_3));
   circuit3.simulate(iterations, lines, time_step);
-  // TODO delete
 }

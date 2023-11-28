@@ -1,11 +1,7 @@
-// TODO: Complementary work needed:
-// You have memory leaks, use valgrind to locate them. 
-//
-// Hint: Network objects take ownership of components but they have no destructor.
-
 #include "Network.h"
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -118,12 +114,16 @@ void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
   Connection connection_2{0};
   Connection connection_3{0};
   Connection connection_4{0};
-  circuit1.add_component(
-      new Battery("Bat", battery_voltage, connection_4, connection_1));
-  circuit1.add_component(new Resistor("R1", 6.0, connection_2, connection_1));
-  circuit1.add_component(new Resistor("R2", 4.0, connection_3, connection_2));
-  circuit1.add_component(new Resistor("R3", 8.0, connection_4, connection_3));
-  circuit1.add_component(new Resistor("R4", 12.0, connection_4, connection_2));
+  circuit1.add_component(std::make_unique<Battery>(
+      Battery("Bat", battery_voltage, connection_4, connection_1)));
+  circuit1.add_component(std::make_unique<Resistor>(
+      Resistor("R1", 6.0, connection_2, connection_1)));
+  circuit1.add_component(std::make_unique<Resistor>(
+      Resistor("R2", 4.0, connection_3, connection_2)));
+  circuit1.add_component(std::make_unique<Resistor>(
+      Resistor("R3", 8.0, connection_4, connection_3)));
+  circuit1.add_component(std::make_unique<Resistor>(
+      Resistor("R4", 12.0, connection_4, connection_2)));
   circuit1.simulate(iterations, lines, time_step);
 }
 
@@ -134,13 +134,18 @@ void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
   Connection connection_2{0};
   Connection connection_3{0};
   Connection connection_4{0};
-  circuit2.add_component(
-      new Battery("Bat", battery_voltage, connection_4, connection_1));
-  circuit2.add_component(new Resistor("R1", 150.0, connection_2, connection_1));
-  circuit2.add_component(new Resistor("R2", 50.0, connection_3, connection_1));
-  circuit2.add_component(new Resistor("R3", 100.0, connection_2, connection_3));
-  circuit2.add_component(new Resistor("R4", 300.0, connection_4, connection_2));
-  circuit2.add_component(new Resistor("R5", 250.0, connection_4, connection_3));
+  circuit2.add_component(std::make_unique<Battery>(
+      Battery("Bat", battery_voltage, connection_4, connection_1)));
+  circuit2.add_component(std::make_unique<Resistor>(
+      Resistor("R1", 150.0, connection_2, connection_1)));
+  circuit2.add_component(std::make_unique<Resistor>(
+      Resistor("R2", 50.0, connection_3, connection_1)));
+  circuit2.add_component(std::make_unique<Resistor>(
+      Resistor("R3", 100.0, connection_2, connection_3)));
+  circuit2.add_component(std::make_unique<Resistor>(
+      Resistor("R4", 300.0, connection_4, connection_2)));
+  circuit2.add_component(std::make_unique<Resistor>(
+      Resistor("R5", 250.0, connection_4, connection_3)));
   circuit2.simulate(iterations, lines, time_step);
 }
 
@@ -151,12 +156,17 @@ void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
   Connection connection_2{0};
   Connection connection_3{0};
   Connection connection_4{0};
-  circuit3.add_component(
-      new Battery("Bat", battery_voltage, connection_4, connection_1));
-  circuit3.add_component(new Resistor("R1", 150.0, connection_2, connection_1));
-  circuit3.add_component(new Resistor("R2", 50.0, connection_3, connection_1));
-  circuit3.add_component(new Capacitor("C3", 1.0, connection_2, connection_3));
-  circuit3.add_component(new Resistor("R4", 300.0, connection_4, connection_2));
-  circuit3.add_component(new Capacitor("C5", 0.75, connection_4, connection_3));
+  circuit3.add_component(std::make_unique<Battery>(
+      Battery("Bat", battery_voltage, connection_4, connection_1)));
+  circuit3.add_component(std::make_unique<Resistor>(
+      Resistor("R1", 150.0, connection_2, connection_1)));
+  circuit3.add_component(std::make_unique<Resistor>(
+      Resistor("R2", 50.0, connection_3, connection_1)));
+  circuit3.add_component(std::make_unique<Capacitor>(
+      Capacitor("C3", 1.0, connection_2, connection_3)));
+  circuit3.add_component(std::make_unique<Resistor>(
+      Resistor("R4", 300.0, connection_4, connection_2)));
+  circuit3.add_component(std::make_unique<Capacitor>(
+      Capacitor("C5", 0.75, connection_4, connection_3)));
   circuit3.simulate(iterations, lines, time_step);
 }

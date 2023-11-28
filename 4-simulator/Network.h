@@ -4,6 +4,7 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -34,11 +35,11 @@ class Network {
 public:
   Network() : components{} {};
   void simulate(unsigned int interations, unsigned int lines, double time_step);
-  std::vector<Component *> &get_components();
-  void add_component(Component *component);
+  std::vector<std::unique_ptr<Component>> &get_components();
+  void add_component(std::unique_ptr<Component> component);
 
 private:
-  std::vector<Component *> components;
+  std::vector<std::unique_ptr<Component>> components;
 };
 
 class Battery : public Component {

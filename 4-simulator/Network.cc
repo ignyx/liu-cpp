@@ -1,6 +1,7 @@
 #include "Network.h"
 #include <iomanip>
 #include <iostream>
+#include <memory>
 #include <string>
 
 using namespace std;
@@ -13,17 +14,19 @@ void Component::run_step(const double) {}
 
 std::string const &Component::get_name() const { return name; }
 
-void Network::add_component(Component *new_component) {
-  components.push_back(new_component);
+void Network::add_component(unique_ptr<Component> new_component) {
+  components.push_back(std::move(new_component));
 }
 
-std::vector<Component *> &Network::get_components() { return components; }
+std::vector<std::unique_ptr<Component>> &Network::get_components() {
+  return components;
+}
 
 void Network::simulate(unsigned int iterations, unsigned int lines,
                        double time_step) {
   cout << setfill(' ') << fixed << setprecision(2);
 
-  for (Component *component : components) {
+  for (const unique_ptr<Component> &component : components) {
     cout << right << setw(16) << component->get_name();
   }
   cout << endl;
@@ -38,7 +41,7 @@ void Network::simulate(unsigned int iterations, unsigned int lines,
     const bool lign_shown{i % iterations_between_lines ==
                           iterations_between_lines - 1};
 
-    for (Component *component : components) {
+    for (const unique_ptr<Component> &component : components) {
       component->run_step(time_step);
 
       if (lign_shown) {

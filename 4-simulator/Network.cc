@@ -9,8 +9,6 @@ double Component::get_voltage() const {
   return terminal_b.potential - terminal_a.potential;
 }
 
-double Component::get_current() const { return 0; }
-
 void Component::run_step(const double) {}
 
 std::string const &Component::get_name() const { return name; }
@@ -73,6 +71,8 @@ void Capacitor::run_step(const double time) {
   terminal_a.potential += charge_difference;
   terminal_b.potential -= charge_difference;
 }
+
+double Battery::get_current() const { return 0; }
 
 void Battery::run_step(const double) {
   terminal_a.potential = 0;

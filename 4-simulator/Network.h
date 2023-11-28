@@ -1,9 +1,6 @@
 // TODO: Complementary work needed: Header files should not contain any
 // implementation.
 
-// TODO: Complementary work needed: Component can't implement get_current or
-// calculate in any meaningful way and they should therefore be pure virtual.
-
 #ifndef NETWORK_H
 #define NETWORK_H
 
@@ -21,7 +18,7 @@ public:
       : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {};
   virtual ~Component() = default; // virtual destructor
   double get_voltage() const;
-  virtual double get_current() const;
+  virtual double get_current() const = 0;
   virtual void run_step(const double time);
   std::string const &get_name() const;
 
@@ -49,6 +46,7 @@ public:
   Battery(std::string const &name, double voltage, Connection &terminal_a,
           Connection &terminal_b)
       : Component{name, terminal_a, terminal_b}, voltage{voltage} {};
+  double get_current() const override;
   void run_step(const double time) override;
 
 private:

@@ -26,11 +26,11 @@ void Network::simulate(unsigned int iterations, unsigned int lines,
   cout << setfill(' ') << fixed << setprecision(2);
 
   for (Component *component : components) {
-    cout << left << setw(16) << component->get_name();
+    cout << right << setw(16) << component->get_name();
   }
   cout << endl;
   for (unsigned int i = 0; i < components.size(); i++) {
-    cout << right << setw(8) << "Volt." << setw(8) << "Curr.";
+    cout << right << setw(8) << "Volt" << setw(8) << "Curr";
   }
   cout << endl;
 

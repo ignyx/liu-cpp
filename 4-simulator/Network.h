@@ -4,9 +4,6 @@
 // TODO: Complementary work needed: Component can't implement get_current or
 // calculate in any meaningful way and they should therefore be pure virtual.
 
-// TODO: Complementary work needed: Use '{...}' instead of '=' to initialize
-// variables.
-
 #ifndef NETWORK_H
 #define NETWORK_H
 
@@ -14,7 +11,7 @@
 #include <vector>
 
 struct Connection {
-  double potential = 0;
+  double potential{0};
 };
 
 class Component {

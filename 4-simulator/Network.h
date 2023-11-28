@@ -1,6 +1,3 @@
-// TODO: Complementary work needed: Header files should not contain any
-// implementation.
-
 #ifndef NETWORK_H
 #define NETWORK_H
 

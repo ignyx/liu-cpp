@@ -89,20 +89,16 @@ void parse_arguments(char **argv, int &iterations, int &lines,
   if (iterations <= 0) {
     cout << "Please enter a positive number of iterations." << endl;
     exit(1);
-  }
-  if (lines <= 0) {
+  } else if (lines <= 0) {
     cout << "Please enter a positive number of displayed lines." << endl;
     exit(1);
-  }
-  if (time_step <= 0) {
+  } else if (time_step <= 0) {
     cout << "Please enter a positive time step." << endl;
     exit(1);
-  }
-  if (battery_voltage <= 0) {
+  } else if (battery_voltage <= 0) {
     cout << "Please enter a positive battery_voltage." << endl;
     exit(1);
-  }
-  if (lines > iterations) {
+  } else if (lines > iterations) {
     cout << "Please enter a number of iterations greater than the number of "
             "lines."
          << endl;

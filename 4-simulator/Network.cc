@@ -8,7 +8,7 @@ using namespace std;
 
 Component::Component(std::string const &name, Connection &terminal_a,
                      Connection &terminal_b)
-    : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {};
+    : name{name}, terminal_a{terminal_a}, terminal_b{terminal_b} {}
 
 double Component::get_voltage() const {
   return terminal_b.potential - terminal_a.potential;
@@ -18,7 +18,7 @@ void Component::run_step(const double) {}
 
 std::string const &Component::get_name() const { return name; }
 
-Network::Network() : components{} {};
+Network::Network() : components{} {}
 
 void Network::add_component(unique_ptr<Component> new_component) {
   components.push_back(std::move(new_component));
@@ -62,7 +62,7 @@ void Network::simulate(unsigned int iterations, unsigned int lines,
 
 Resistor::Resistor(std::string const &name, double resistance,
                    Connection &terminal_a, Connection &terminal_b)
-    : Component{name, terminal_a, terminal_b}, resistance{resistance} {};
+    : Component{name, terminal_a, terminal_b}, resistance{resistance} {}
 
 double Resistor::get_current() const { return get_voltage() / resistance; }
 
@@ -75,7 +75,7 @@ void Resistor::run_step(const double time) {
 Capacitor::Capacitor(std::string const &name, double capacitance,
                      Connection &terminal_a, Connection &terminal_b)
     : Component{name, terminal_a, terminal_b}, capacitance{capacitance},
-      stored_charge{0} {};
+      stored_charge{0} {}
 
 double Capacitor::get_current() const {
   return capacitance * (get_voltage() - stored_charge);
@@ -92,7 +92,7 @@ void Capacitor::run_step(const double time) {
 
 Battery::Battery(std::string const &name, double voltage,
                  Connection &terminal_a, Connection &terminal_b)
-    : Component{name, terminal_a, terminal_b}, voltage{voltage} {};
+    : Component{name, terminal_a, terminal_b}, voltage{voltage} {}
 
 double Battery::get_current() const { return 0; }
 

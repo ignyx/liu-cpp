@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <forward_list>
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <unordered_map>
 
 using namespace std;
 
@@ -50,4 +52,12 @@ void print(forward_list<string> &words) {
 void print_help(char *arg0) {
   cout << "usage: " << arg0 << " <file> [arguments]" << endl;
   // TODO
+}
+
+unordered_map<string, int> count_words(forward_list<string> &text) {
+  // unsorted key-value pairs (O(1) average; O(n) worst-case)
+  unordered_map<string, int> word_count;
+  for_each(text.begin(), text.end(),
+           [&word_count](string word) { word_count[word]++; });
+  return word_count;
 }

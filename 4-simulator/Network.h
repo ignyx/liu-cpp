@@ -21,7 +21,7 @@ public:
 
   // virtual functions
   virtual double get_current() const = 0;
-  virtual void run_step(const double time);
+  virtual void run_step(const double time) = 0;
 
 private:
   std::string name;

@@ -8,14 +8,23 @@
 using namespace std;
 
 void print_help(char *arg0);
-void parse_arguments(char **argv, int &iterations, int &lines,
-                     double &time_step, double &battery_voltage);
-void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage);
-void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage);
-void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage);
+void parse_arguments(char **argv,
+                     int &iterations,
+                     int &lines,
+                     double &time_step,
+                     double &battery_voltage);
+void simulate_circuit1(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage);
+void simulate_circuit2(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage);
+void simulate_circuit3(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage);
 
 int main(int argc, char **argv) {
   if (argc != 5) {
@@ -38,8 +47,11 @@ void print_help(char *arg0) {
        << "example: " << arg0 << " 200000 10 0.01 24" << endl;
 }
 
-void parse_arguments(char **argv, int &iterations, int &lines,
-                     double &time_step, double &battery_voltage) {
+void parse_arguments(char **argv,
+                     int &iterations,
+                     int &lines,
+                     double &time_step,
+                     double &battery_voltage) {
   try {
     iterations = stoi(argv[1]);
   } catch (invalid_argument const &) {
@@ -107,8 +119,10 @@ void parse_arguments(char **argv, int &iterations, int &lines,
   }
 }
 
-void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage) {
+void simulate_circuit1(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage) {
   Network circuit1{};
   Connection connection_1{0};
   Connection connection_2{0};
@@ -127,8 +141,10 @@ void simulate_circuit1(const unsigned int iterations, const unsigned int lines,
   circuit1.simulate(iterations, lines, time_step);
 }
 
-void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage) {
+void simulate_circuit2(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage) {
   Network circuit2{};
   Connection connection_1{0};
   Connection connection_2{0};
@@ -149,8 +165,10 @@ void simulate_circuit2(const unsigned int iterations, const unsigned int lines,
   circuit2.simulate(iterations, lines, time_step);
 }
 
-void simulate_circuit3(const unsigned int iterations, const unsigned int lines,
-                       const double time_step, const double battery_voltage) {
+void simulate_circuit3(const unsigned int iterations,
+                       const unsigned int lines,
+                       const double time_step,
+                       const double battery_voltage) {
   Network circuit3{};
   Connection connection_1{0};
   Connection connection_2{0};

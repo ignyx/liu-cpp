@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <map>
 #include <unordered_map>
 
 using namespace std;
@@ -58,12 +59,52 @@ void print_help(char *arg0) {
   // TODO
 }
 
-unordered_map<string, int> count_words(forward_list<string> &text) {
+unordered_map<string, int> count_words(const forward_list<string> &text) {
   // unsorted key-value pairs (O(1) average; O(n) worst-case)
   unordered_map<string, int> word_count;
   for_each(text.begin(), text.end(),
            [&word_count](const string &word) { word_count[word]++; });
   return word_count;
+}
+
+// Computes and prints and frequency table sorted alphabetically for
+// the given text
+void print_frequency_table_alpha(const forward_list<string> &text) {
+  unordered_map<string, int> word_count{count_words(text)};
+
+  map<string, int> word_count_sorted;
+
+  copy(word_count.begin(), word_count.end(),
+       inserter(word_count_sorted, word_count_sorted.end()));
+
+  // TODO refactore
+  // TODO format
+  for_each(word_count_sorted.begin(), word_count_sorted.end(),
+           [](const std::pair<string, int> word) {
+             cout << word.first << word.second << endl;
+           });
+}
+
+// Computes and prints and frequency table sorted by decreasing frequency for
+// the given text
+void print_frequency_table_numer(const forward_list<string> &text) {
+  unordered_map<string, int> word_count{count_words(text)};
+
+  multimap<int, string> word_count_sorted;
+
+  transform(word_count.begin(), word_count.end(),
+            inserter(word_count_sorted, word_count_sorted.end()),
+            [](const std::pair<string, int> word) {
+              const std::pair<int, string> reversed{word.second, word.first};
+              return reversed;
+            });
+
+  // TODO refactore
+  // TODO format
+  for_each(word_count_sorted.rbegin(), word_count_sorted.rend(),
+           [](const std::pair<int, string> word) {
+             cout << word.first << " " << word.second << endl;
+           });
 }
 
 void execute_argument(const string &argument, forward_list<string> &text) {
@@ -79,10 +120,12 @@ void execute_argument(const string &argument, forward_list<string> &text) {
   } else if (flag == "--frequency") {
     if (parameter.size() > 0)
       cerr << "warning: --frequency takes no parameter" << endl;
+    print_frequency_table_numer(text);
 
   } else if (flag == "--table") {
     if (parameter.size() > 0)
       cerr << "warning: --table takes no parameter" << endl;
+    print_frequency_table_alpha(text);
 
   } else if (flag == "--substitute") {
 

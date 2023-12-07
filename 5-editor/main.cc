@@ -9,10 +9,25 @@
 
 using namespace std;
 
-forward_list<string> read_words_from_file(ifstream &file);
-void print(forward_list<string> &words);
+class Text : private forward_list<string> {
+public:
+  Text(){};
+  Text(istream_iterator<string> begin, istream_iterator<string> end)
+      : forward_list(begin, end){};
+  using forward_list<string>::begin;
+  using forward_list<string>::end;
+  void print() const;
+  unordered_map<string, int> count_words() const;
+  unsigned int get_max_word_length() const;
+  void print_frequency_table_numer() const;
+  void print_frequency_table_alpha() const;
+  void substitute(const string &replaced, const string &replacing);
+  void erase(const string &replaced);
+  void compute_argument(const string &argument);
+};
+
+Text read_words_from_file(ifstream &file);
 void print_help(char *arg0);
-void execute_argument(const string &argument, forward_list<string> &text);
 
 int main(int argc, char **argv) {
   if (argc == 1) {
@@ -22,7 +37,7 @@ int main(int argc, char **argv) {
 
   char *file_name = argv[1];
   ifstream file{file_name};
-  forward_list<string> text;
+  Text text;
   forward_list<string> arguments{argv + 2, argv + argc};
 
   if (!file.is_open()) {
@@ -37,22 +52,27 @@ int main(int argc, char **argv) {
   }
 
   for_each(arguments.begin(), arguments.end(), [&text](const string &argument) {
-    execute_argument(argument, text);
+    text.compute_argument(argument);
   });
-  // print(text);
-  // print(arguments);
   return 0;
 }
 
-forward_list<string> read_words_from_file(ifstream &file) {
-  forward_list<string> words{istream_iterator<string>{file},
-                             istream_iterator<string>{}};
+Text read_words_from_file(ifstream &file) {
+  Text words{istream_iterator<string>{file}, istream_iterator<string>{}};
   return words;
 }
 
-void print(forward_list<string> &words) {
-  copy(words.begin(), words.end(), ostream_iterator<string>{cout, " "});
+void Text::print() const {
+  copy(this->begin(), this->end(), ostream_iterator<string>{cout, " "});
   cout << endl;
+}
+
+void Text::substitute(const string &replaced, const string &replacing) {
+  replace(this->begin(), this->end(), replaced, replacing);
+}
+
+void Text::erase(const string &replaced) {
+  this->end() = std::remove(this->begin(), this->end(), replaced);
 }
 
 void print_help(char *arg0) {
@@ -60,35 +80,33 @@ void print_help(char *arg0) {
   // TODO
 }
 
-unordered_map<string, int> count_words(const forward_list<string> &text) {
+unsigned int Text::get_max_word_length() const {
+  return max_element(this->begin(), this->end(),
+                     [](string a, string b) { return a.length() < b.length(); })
+      ->length();
+}
+
+unordered_map<string, int> Text::count_words() const {
   // unsorted key-value pairs (O(1) average; O(n) worst-case)
   unordered_map<string, int> word_count;
-  for_each(text.begin(), text.end(),
+  for_each(this->begin(), this->end(),
            [&word_count](const string &word) { word_count[word]++; });
   return word_count;
 }
 
 // Computes and prints and frequency table sorted alphabetically for
 // the given text
-void print_frequency_table_alpha(const forward_list<string> &text) {
-  unordered_map<string, int> word_count{count_words(text)};
+void Text::print_frequency_table_alpha() const {
+  unordered_map<string, int> word_count{this->count_words()};
 
   map<string, int> word_count_sorted;
 
   copy(word_count.begin(), word_count.end(),
        inserter(word_count_sorted, word_count_sorted.end()));
 
-  const unsigned int max_word_length =
-      max_element(
-          word_count.begin(), word_count.end(),
-          [](const std::pair<string, int> a, const std::pair<string, int> b) {
-            return a.first.length() < b.first.length();
-          })
-          ->first.length();
+  const unsigned int max_word_length = this->get_max_word_length();
 
   cout << setfill(' ');
-  // TODO refactore
-  // TODO format
   for_each(word_count_sorted.begin(), word_count_sorted.end(),
            [max_word_length](const std::pair<string, int> word) {
              cout << left << setw(max_word_length + 1) << word.first << right
@@ -99,8 +117,8 @@ void print_frequency_table_alpha(const forward_list<string> &text) {
 
 // Computes and prints and frequency table sorted by decreasing frequency for
 // the given text
-void print_frequency_table_numer(const forward_list<string> &text) {
-  unordered_map<string, int> word_count{count_words(text)};
+void Text::print_frequency_table_numer() const {
+  unordered_map<string, int> word_count{this->count_words()};
 
   multimap<int, string> word_count_sorted;
 
@@ -111,38 +129,49 @@ void print_frequency_table_numer(const forward_list<string> &text) {
               return reversed;
             });
 
-  // TODO refactore
-  // TODO format
+  const unsigned int max_word_length = this->get_max_word_length();
+
+  cout << setfill(' ');
   for_each(word_count_sorted.rbegin(), word_count_sorted.rend(),
-           [](const std::pair<int, string> word) {
-             cout << word.first << " " << word.second << endl;
+           [max_word_length](const std::pair<int, string> word) {
+             cout << left << word.first << right << setw(max_word_length + 1)
+                  << word.second << "\n";
            });
 }
 
-void execute_argument(const string &argument, forward_list<string> &text) {
+void Text::compute_argument(const string &argument) {
   const size_t separator{argument.find('=')};
   const size_t split{separator == string::npos ? argument.size() : separator};
   const string flag = argument.substr(0, split);
-  const string parameter = argument.substr(split);
+  const string parameter =
+      separator == string::npos ? "" : argument.substr(split + 1);
 
   if (flag == "--print") {
     if (parameter.size() > 0)
       cerr << "warning: --print takes no parameter" << endl;
-    print(text);
+    print();
   } else if (flag == "--frequency") {
     if (parameter.size() > 0)
       cerr << "warning: --frequency takes no parameter" << endl;
-    print_frequency_table_numer(text);
+    this->print_frequency_table_numer();
 
   } else if (flag == "--table") {
     if (parameter.size() > 0)
       cerr << "warning: --table takes no parameter" << endl;
-    print_frequency_table_alpha(text);
+    this->print_frequency_table_alpha();
 
   } else if (flag == "--substitute") {
+    const size_t separator{parameter.find('+')};
+    const size_t split{separator == string::npos ? parameter.size()
+                                                 : separator};
+    const string replaced = parameter.substr(0, split);
+    const string replacing =
+        separator == string::npos ? "" : parameter.substr(split + 1);
 
+    substitute(replaced, replacing);
   } else if (flag == "--remove") {
-
+    cout << parameter;
+    erase(parameter);
   } else {
     cerr << "warning: unknown flag " << flag << endl;
   }

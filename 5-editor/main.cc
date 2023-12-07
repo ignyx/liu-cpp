@@ -16,6 +16,7 @@ public:
       : forward_list(begin, end){};
   using forward_list<string>::begin;
   using forward_list<string>::end;
+  using forward_list<string>::empty;
   void print() const;
   unordered_map<string, int> count_words() const;
   unsigned int get_max_word_length() const;
@@ -105,12 +106,17 @@ void Text::print_frequency_table_alpha() const {
        inserter(word_count_sorted, word_count_sorted.end()));
 
   const unsigned int max_word_length = this->get_max_word_length();
+  const unsigned int max_word_length_length =
+      to_string(max_word_length).length();
+  // cout << max_word_length_length << endl;
+  // TODO fix int size
 
   cout << setfill(' ');
   for_each(word_count_sorted.begin(), word_count_sorted.end(),
-           [max_word_length](const std::pair<string, int> word) {
+           [max_word_length,
+            max_word_length_length](const std::pair<string, int> word) {
              cout << left << setw(max_word_length + 1) << word.first << right
-                  << word.second << "\n";
+                  << setw(max_word_length_length) << word.second << "\n";
            });
   cout << flush;
 }
@@ -130,12 +136,15 @@ void Text::print_frequency_table_numer() const {
             });
 
   const unsigned int max_word_length = this->get_max_word_length();
+  const unsigned int max_word_length_length =
+      to_string(max_word_length).length();
 
   cout << setfill(' ');
   for_each(word_count_sorted.rbegin(), word_count_sorted.rend(),
-           [max_word_length](const std::pair<int, string> word) {
-             cout << left << word.first << right << setw(max_word_length + 1)
-                  << word.second << "\n";
+           [max_word_length,
+            max_word_length_length](const std::pair<int, string> word) {
+             cout << left << setw(max_word_length_length) << word.first << right
+                  << setw(max_word_length + 1) << word.second << "\n";
            });
 }
 
@@ -145,6 +154,9 @@ void Text::compute_argument(const string &argument) {
   const string flag = argument.substr(0, split);
   const string parameter =
       separator == string::npos ? "" : argument.substr(split + 1);
+
+  if (this->empty())
+    return;
 
   if (flag == "--print") {
     if (parameter.size() > 0)
@@ -168,9 +180,16 @@ void Text::compute_argument(const string &argument) {
     const string replacing =
         separator == string::npos ? "" : parameter.substr(split + 1);
 
+    if (separator == string::npos)
+      cerr << "warning: --substitute takes two parameters separated by a +. "
+              "Example : --substitute=foo+bar"
+           << endl;
+
     substitute(replaced, replacing);
   } else if (flag == "--remove") {
-    cout << parameter;
+    if (parameter.size() == 0)
+      cerr << "warning: --table takes one parameter. Example : --remove=foo"
+           << endl;
     erase(parameter);
   } else {
     cerr << "warning: unknown flag " << flag << endl;

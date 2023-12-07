@@ -10,8 +10,22 @@
 
 using namespace std;
 
-void compute_arguments(string argument, forward_list<string>& text);
-forward_list<string> read_words_from_file(ifstream &file);
+
+class Text : private forward_list<string>{
+  public :
+    Text(){};
+    Text(istream_iterator<string> begin, istream_iterator<string> end)
+      : forward_list(begin, end){};
+    using forward_list<string>::begin;
+    using forward_list<string>::end;
+    //using forward_list<string>::operator=;
+    void print();
+    void substitute(string replaced, string replacing);
+    void erase(string replaced);
+    void compute_arguments(string argument);
+};
+
+Text read_words_from_file(ifstream &file);
 void print(forward_list<string> &words);
 void print_help(char *arg0);
 
@@ -23,8 +37,9 @@ int main(int argc, char **argv) {
   }
 
   char *file_name = argv[1];
+
   ifstream file{file_name};
-  forward_list<string> text;
+  Text text;
   forward_list<string> arguments{argv + 2, argv + argc};
 
   if (!file.is_open()) {
@@ -37,22 +52,21 @@ int main(int argc, char **argv) {
   } catch (const ifstream::failure &error) {
     cout << "failed to read from " << file_name << ": " << error.what() << endl;
   }
-
   auto f = [&](string argument) { 
-    compute_arguments(argument, text);
+    text.compute_arguments(argument);
   };
   for_each(arguments.begin(),arguments.end(), f);
 }
   
 
-void compute_arguments(string argument, forward_list<string>& text){
+void Text::compute_arguments(string argument){
 
   string parameter = argument.substr(argument.find('='));
   string flag = argument.substr(0, argument.find('='));
 
 
   if (flag == "--print"){
-    print(text);
+    this->print();
   }
   else if(flag == "--frequency"){
 
@@ -72,18 +86,31 @@ void compute_arguments(string argument, forward_list<string>& text){
   }
 }
 
-forward_list<string> read_words_from_file(ifstream &file) {
-  forward_list<string> words{istream_iterator<string>{file},
+
+Text read_words_from_file(ifstream &file) {
+
+  Text words{istream_iterator<string>{file},
                              istream_iterator<string>{}};
   return words;
 }
 
-void print(forward_list<string> &words) {
-  copy(words.begin(), words.end(), ostream_iterator<string>{cout, " "});
+void Text::print() {
+  copy(this->begin(), this->end(), ostream_iterator<string>{cout, " "});
   cout << endl;
 }
+
+void Text::substitute(string replaced, string replacing){
+  replace(this->begin(), this->end(), replaced, replacing);
+}
+
+void Text::erase(string replaced){
+  std::remove(this->begin(), this->end(),replaced);
+}
+
+
 
 void print_help(char *arg0) {
   cout << "usage: " << arg0 << " <file> [arguments]" << endl;
   // TODO
 }
+

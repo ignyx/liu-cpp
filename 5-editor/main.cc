@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <forward_list>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -77,12 +78,23 @@ void print_frequency_table_alpha(const forward_list<string> &text) {
   copy(word_count.begin(), word_count.end(),
        inserter(word_count_sorted, word_count_sorted.end()));
 
+  const unsigned int max_word_length =
+      max_element(
+          word_count.begin(), word_count.end(),
+          [](const std::pair<string, int> a, const std::pair<string, int> b) {
+            return a.first.length() < b.first.length();
+          })
+          ->first.length();
+
+  cout << setfill(' ');
   // TODO refactore
   // TODO format
   for_each(word_count_sorted.begin(), word_count_sorted.end(),
-           [](const std::pair<string, int> word) {
-             cout << word.first << word.second << endl;
+           [max_word_length](const std::pair<string, int> word) {
+             cout << left << setw(max_word_length + 1) << word.first << right
+                  << word.second << "\n";
            });
+  cout << flush;
 }
 
 // Computes and prints and frequency table sorted by decreasing frequency for

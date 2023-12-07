@@ -75,10 +75,14 @@ void Text::compute_arguments(string argument){
 
   }
   else if(flag == "--substitute"){
-
+    const size_t separator{parameter.find('=')};
+    const size_t split{separator == string::npos ? parameter.size() : separator};
+    const string replaced = parameter.substr(0, split);
+    const string replacing = parameter.substr(split);
+    substitute(replaced, replacing);
   }
   else if(flag == "--remove"){
-
+    erase(argument);
   }
   else {
     cout << "unknown command" << endl;

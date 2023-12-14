@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  char *file_name = argv[1];
+  const char *file_name{argv[1]};
   ifstream file{file_name};
   Text text;
   forward_list<string> arguments{argv + 2, argv + argc};
@@ -105,9 +105,9 @@ void Text::print_frequency_table_alpha() const {
   copy(word_count.begin(), word_count.end(),
        inserter(word_count_sorted, word_count_sorted.end()));
 
-  const unsigned int max_word_length = this->get_max_word_length();
-  const unsigned int max_word_length_length =
-      to_string(max_word_length).length();
+  const unsigned long max_word_length{this->get_max_word_length()};
+  const unsigned long max_word_length_length{
+      to_string(max_word_length).length()};
   // cout << max_word_length_length << endl;
   // TODO fix int size
 
@@ -135,9 +135,9 @@ void Text::print_frequency_table_numer() const {
               return reversed;
             });
 
-  const unsigned int max_word_length = this->get_max_word_length();
-  const unsigned int max_word_length_length =
-      to_string(max_word_length).length();
+  const unsigned long max_word_length{this->get_max_word_length()};
+  const unsigned long max_word_length_length{
+      to_string(max_word_length).length()};
 
   cout << setfill(' ');
   for_each(word_count_sorted.rbegin(), word_count_sorted.rend(),
@@ -151,14 +151,13 @@ void Text::print_frequency_table_numer() const {
 void Text::compute_argument(const string &argument) {
   const size_t separator{argument.find('=')};
   const size_t split{separator == string::npos ? argument.size() : separator};
-  const string flag = argument.substr(0, split);
-  const string parameter =
-      separator == string::npos ? "" : argument.substr(split + 1);
+  const string flag{argument.substr(0, split)};
+  const string parameter{
+      separator == string::npos ? "" : argument.substr(split + 1)};
 
   if (this->empty())
     return;
-
-  if (flag == "--print") {
+  else if (flag == "--print") {
     if (parameter.size() > 0)
       cerr << "warning: --print takes no parameter" << endl;
     print();
@@ -176,9 +175,9 @@ void Text::compute_argument(const string &argument) {
     const size_t separator{parameter.find('+')};
     const size_t split{separator == string::npos ? parameter.size()
                                                  : separator};
-    const string replaced = parameter.substr(0, split);
-    const string replacing =
-        separator == string::npos ? "" : parameter.substr(split + 1);
+    const string replaced{parameter.substr(0, split)};
+    const string replacing{
+        separator == string::npos ? "" : parameter.substr(split + 1)};
 
     if (separator == string::npos)
       cerr << "warning: --substitute takes two parameters separated by a +. "

@@ -77,8 +77,14 @@ void Text::erase(const string &replaced) {
 }
 
 void print_help(char *arg0) {
-  cout << "usage: " << arg0 << " <file> [arguments]" << endl;
-  // TODO
+  cout << "usage: " << arg0 << " <file> [arguments]\n"
+       << "argmuments :\n"
+       << "--print                Prints current buffer\n"
+       << "--frequency            Prints a frequency table, sorted by number of occurences\n"
+       << "--table                Prints a frequency table, sorted alphabetically\n"
+       << "--substitute=old+new   Replaces all occurences of old by new in buffer\n"
+       << "--remove=word          Removes all occurences of word from buffer"
+       << endl;
 }
 
 unsigned int Text::get_max_word_length() const {
@@ -105,11 +111,10 @@ void Text::print_frequency_table_alpha() const {
   copy(word_count.begin(), word_count.end(),
        inserter(word_count_sorted, word_count_sorted.end()));
 
+  // used to align words correctly in output
   const unsigned long max_word_length{this->get_max_word_length()};
   const unsigned long max_word_length_length{
       to_string(max_word_length).length()};
-  // cout << max_word_length_length << endl;
-  // TODO fix int size
 
   cout << setfill(' ');
   for_each(word_count_sorted.begin(), word_count_sorted.end(),
@@ -128,6 +133,7 @@ void Text::print_frequency_table_numer() const {
 
   multimap<int, string> word_count_sorted;
 
+  // sort by number of occurences
   transform(word_count.begin(), word_count.end(),
             inserter(word_count_sorted, word_count_sorted.end()),
             [](const std::pair<string, int> word) {
@@ -135,6 +141,7 @@ void Text::print_frequency_table_numer() const {
               return reversed;
             });
 
+  // used to align words correctly in output
   const unsigned long max_word_length{this->get_max_word_length()};
   const unsigned long max_word_length_length{
       to_string(max_word_length).length()};
@@ -161,6 +168,7 @@ void Text::compute_argument(const string &argument) {
     if (parameter.size() > 0)
       cerr << "warning: --print takes no parameter" << endl;
     print();
+
   } else if (flag == "--frequency") {
     if (parameter.size() > 0)
       cerr << "warning: --frequency takes no parameter" << endl;
@@ -181,7 +189,7 @@ void Text::compute_argument(const string &argument) {
 
     if (separator == string::npos)
       cerr << "warning: --substitute takes two parameters separated by a +. "
-              "Example : --substitute=foo+bar"
+              "Example : --substitute=old+new"
            << endl;
 
     substitute(replaced, replacing);

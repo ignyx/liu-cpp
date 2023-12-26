@@ -103,25 +103,21 @@ unordered_map<string, int> Text::count_words() const {
 
 // Computes and prints and frequency table sorted alphabetically for
 // the given text
+// Computes and prints and frequency table sorted alphabetically for
+// the given text
 void Text::print_frequency_table_alpha() const {
-  unordered_map<string, int> word_count{this->count_words()};
-
+  
   map<string, int> word_count_sorted;
-
-  copy(word_count.begin(), word_count.end(),
-       inserter(word_count_sorted, word_count_sorted.end()));
-
+  for_each(this->begin(), this->end(), [&word_count_sorted](string str)
+            { return word_count_sorted[str]++; });
+  
   // used to align words correctly in output
   const unsigned long max_word_length{this->get_max_word_length()};
-  const unsigned long max_word_length_length{
-      to_string(max_word_length).length()};
 
   cout << setfill(' ');
   for_each(word_count_sorted.begin(), word_count_sorted.end(),
-           [max_word_length,
-            max_word_length_length](const std::pair<string, int> word) {
-             cout << left << setw(max_word_length + 1) << word.first << right
-                  << setw(max_word_length_length) << word.second << "\n";
+           [max_word_length](const std::pair<string, int> word) {
+             cout << left << setw(max_word_length + 1) << word.first << word.second << "\n";
            });
   cout << flush;
 }
@@ -129,29 +125,25 @@ void Text::print_frequency_table_alpha() const {
 // Computes and prints and frequency table sorted by decreasing frequency for
 // the given text
 void Text::print_frequency_table_numer() const {
-  unordered_map<string, int> word_count{this->count_words()};
 
-  multimap<int, string> word_count_sorted;
+  //put the words in a map next to their number of apparence 
+  map<string, int> word_counted;
+  for_each(this->begin(), this->end(), [&word_counted](string str)
+            { return word_counted[str]++; });
 
-  // sort by number of occurences
-  transform(word_count.begin(), word_count.end(),
-            inserter(word_count_sorted, word_count_sorted.end()),
-            [](const std::pair<string, int> word) {
-              const std::pair<int, string> reversed{word.second, word.first};
-              return reversed;
-            });
-
+  //change the map to a vector of pairs to allow sorting
+  vector<pair<string, int>> word_sorted(word_counted.begin(), word_counted.end());
+  std::sort(word_sorted.begin(), word_sorted.end(), [](const auto& pair1, const auto& pair2){
+    return pair1.second>pair2.second;
+  });
+  
   // used to align words correctly in output
   const unsigned long max_word_length{this->get_max_word_length()};
-  const unsigned long max_word_length_length{
-      to_string(max_word_length).length()};
-
+  
   cout << setfill(' ');
-  for_each(word_count_sorted.rbegin(), word_count_sorted.rend(),
-           [max_word_length,
-            max_word_length_length](const std::pair<int, string> word) {
-             cout << left << setw(max_word_length_length) << word.first << right
-                  << setw(max_word_length + 1) << word.second << "\n";
+  for_each(word_sorted.begin(), word_sorted.end(),
+           [max_word_length](const std::pair<string, int> word) {
+             cout << left << setw(max_word_length + 1) << word.first  << word.second << "\n";
            });
 }
 

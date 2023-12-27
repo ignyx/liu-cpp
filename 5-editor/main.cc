@@ -95,7 +95,7 @@ void print_help(char *arg0) {
 }
 
 unsigned int get_max_word_length(const vector<pair<string, int>> &words) {
-  auto compare = [](pair<string, int> a, pair<string, int> b) {
+  const auto compare = [](pair<string, int> a, pair<string, int> b) {
     return a.first.length() < b.first.length();
   };
 
@@ -126,9 +126,9 @@ void print_words(const vector<pair<string, int>> &words) {
 // Computes and prints and frequency table sorted alphabetically for
 // the given text
 void Text::print_frequency_table_alpha() const {
-  map<string, int> word_count{this->count_words()};
-
-  vector<pair<string, int>> word_sorted{word_count.begin(), word_count.end()};
+  const map<string, int> word_count{this->count_words()};
+  const vector<pair<string, int>> word_sorted{word_count.begin(),
+                                              word_count.end()};
 
   print_words(word_sorted);
 }
@@ -136,7 +136,7 @@ void Text::print_frequency_table_alpha() const {
 // Computes and prints and frequency table sorted by decreasing frequency for
 // the given text
 void Text::print_frequency_table_numer() const {
-  map<string, int> word_count{this->count_words()};
+  const map<string, int> word_count{this->count_words()};
   vector<pair<string, int>> word_sorted{word_count.begin(), word_count.end()};
 
   const auto compare = [](pair<string, int> a, pair<string, int> b) {

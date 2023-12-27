@@ -22,7 +22,7 @@ public:
   using forward_list<string>::end;
   using forward_list<string>::empty;
   void print() const;
-  unordered_map<string, int> count_words() const;
+  map<string, int> count_words() const;
   unsigned int get_max_word_length() const;
   void print_frequency_table_numer() const;
   void print_frequency_table_alpha() const;
@@ -100,9 +100,9 @@ unsigned int Text::get_max_word_length() const {
       ->length();
 }
 
-unordered_map<string, int> Text::count_words() const {
+map<string, int> Text::count_words() const {
   // unsorted key-value pairs (O(1) average; O(n) worst-case)
-  unordered_map<string, int> word_count;
+  map<string, int> word_count;
   for_each(this->begin(), this->end(),
            [&word_count](const string &word) { word_count[word]++; });
   return word_count;
@@ -110,20 +110,14 @@ unordered_map<string, int> Text::count_words() const {
 
 // Computes and prints and frequency table sorted alphabetically for
 // the given text
-// Computes and prints and frequency table sorted alphabetically for
-// the given text
 void Text::print_frequency_table_alpha() const {
-
-  map<string, int> word_count_sorted;
-  for_each(this->begin(), this->end(), [&word_count_sorted](string str) {
-    return word_count_sorted[str]++;
-  });
+  map<string, int> word_count{this->count_words()};
 
   // used to align words correctly in output
   const unsigned long max_word_length{this->get_max_word_length()};
 
   cout << setfill(' ');
-  for_each(word_count_sorted.begin(), word_count_sorted.end(),
+  for_each(word_count.begin(), word_count.end(),
            [max_word_length](const std::pair<string, int> word) {
              cout << left << setw(max_word_length + 1) << word.first
                   << word.second << "\n";
@@ -134,15 +128,10 @@ void Text::print_frequency_table_alpha() const {
 // Computes and prints and frequency table sorted by decreasing frequency for
 // the given text
 void Text::print_frequency_table_numer() const {
-
-  // put the words in a map next to their number of apparence
-  map<string, int> word_counted;
-  for_each(this->begin(), this->end(),
-           [&word_counted](string str) { return word_counted[str]++; });
+  map<string, int> word_count{this->count_words()};
 
   // change the map to a vector of pairs to allow sorting
-  vector<pair<string, int>> word_sorted(word_counted.begin(),
-                                        word_counted.end());
+  vector<pair<string, int>> word_sorted(word_count.begin(), word_count.end());
   std::sort(word_sorted.begin(), word_sorted.end(),
             [](const auto &pair1, const auto &pair2) {
               return pair1.second > pair2.second;

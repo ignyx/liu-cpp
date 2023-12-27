@@ -1,6 +1,3 @@
-// TODO: Complementary work needed: Do not repeat similar code. Reuse code for
-// the two table operations (--table and –frequency)
-
 #include <algorithm>
 #include <forward_list>
 #include <fstream>

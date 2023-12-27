@@ -137,14 +137,13 @@ void Text::print_frequency_table_alpha() const {
 // the given text
 void Text::print_frequency_table_numer() const {
   map<string, int> word_count{this->count_words()};
-
-  // change the map to a vector of pairs to allow sorting
   vector<pair<string, int>> word_sorted{word_count.begin(), word_count.end()};
-  std::sort(word_sorted.begin(), word_sorted.end(),
-            [](const auto &pair1, const auto &pair2) {
-              return pair1.second > pair2.second;
-            });
 
+  const auto compare = [](pair<string, int> a, pair<string, int> b) {
+    return a.second > b.second;
+  };
+
+  std::sort(word_sorted.begin(), word_sorted.end(), compare);
   print_words(word_sorted);
 }
 

@@ -84,12 +84,9 @@ void print_help(char *arg0) {
   cout << "usage: " << arg0 << " <file> [arguments]\n"
        << "argmuments :\n"
        << "--print                Prints current buffer\n"
-       << "--frequency            Prints a frequency table, sorted by number "
-          "of occurences\n"
-       << "--table                Prints a frequency table, sorted "
-          "alphabetically\n"
-       << "--substitute=old+new   Replaces all occurences of old by new in "
-          "buffer\n"
+       << "--frequency            Prints a frequency table, sorted by number of occurences\n"
+       << "--table                Prints a frequency table, sorted alphabetically\n"
+       << "--substitute=old+new   Replaces all occurences of old by new in buffer\n"
        << "--remove=word          Removes all occurences of word from buffer"
        << endl;
 }

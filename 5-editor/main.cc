@@ -110,12 +110,16 @@ map<string, int> Text::count_words() const {
   return word_count;
 }
 
-void print_words(const vector<pair<string, int>> &words) {
+void print_words(const vector<pair<string, int>> &words,
+                 const bool left_align) {
   const unsigned long max_word_length{get_max_word_length(words)};
 
-  auto print_line = [max_word_length](const std::pair<string, int> word) {
-    cout << left << setw(max_word_length + 1) << word.first << word.second
-         << "\n";
+  const auto word_align = left_align ? left : right;
+
+  auto print_line = [max_word_length,
+                     word_align](const std::pair<string, int> word) {
+    cout << word_align << setw(max_word_length + 1) << word.first << right
+         << setw(3) << word.second << "\n";
   };
 
   cout << setfill(' ');
@@ -130,7 +134,7 @@ void Text::print_frequency_table_alpha() const {
   const vector<pair<string, int>> word_sorted{word_count.begin(),
                                               word_count.end()};
 
-  print_words(word_sorted);
+  print_words(word_sorted, true);
 }
 
 // Computes and prints and frequency table sorted by decreasing frequency for
@@ -144,7 +148,7 @@ void Text::print_frequency_table_numer() const {
   };
 
   std::sort(word_sorted.begin(), word_sorted.end(), compare);
-  print_words(word_sorted);
+  print_words(word_sorted, false);
 }
 
 void Text::compute_argument(const string &argument) {

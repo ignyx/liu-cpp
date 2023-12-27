@@ -94,10 +94,12 @@ void print_help(char *arg0) {
        << endl;
 }
 
-unsigned int Text::get_max_word_length() const {
-  return max_element(this->begin(), this->end(),
-                     [](string a, string b) { return a.length() < b.length(); })
-      ->length();
+unsigned int get_max_word_length(const vector<pair<string, int>> &words) {
+  auto compare = [](pair<string, int> a, pair<string, int> b) {
+    return a.first.length() < b.first.length();
+  };
+
+  return max_element(words.begin(), words.end(), compare)->first.length();
 }
 
 map<string, int> Text::count_words() const {
@@ -108,21 +110,27 @@ map<string, int> Text::count_words() const {
   return word_count;
 }
 
+void print_words(const vector<pair<string, int>> &words) {
+  const unsigned long max_word_length{get_max_word_length(words)};
+
+  auto print_line = [max_word_length](const std::pair<string, int> word) {
+    cout << left << setw(max_word_length + 1) << word.first << word.second
+         << "\n";
+  };
+
+  cout << setfill(' ');
+  for_each(words.begin(), words.end(), print_line);
+  cout << flush;
+}
+
 // Computes and prints and frequency table sorted alphabetically for
 // the given text
 void Text::print_frequency_table_alpha() const {
   map<string, int> word_count{this->count_words()};
 
-  // used to align words correctly in output
-  const unsigned long max_word_length{this->get_max_word_length()};
+  vector<pair<string, int>> word_sorted{word_count.begin(), word_count.end()};
 
-  cout << setfill(' ');
-  for_each(word_count.begin(), word_count.end(),
-           [max_word_length](const std::pair<string, int> word) {
-             cout << left << setw(max_word_length + 1) << word.first
-                  << word.second << "\n";
-           });
-  cout << flush;
+  print_words(word_sorted);
 }
 
 // Computes and prints and frequency table sorted by decreasing frequency for
@@ -131,21 +139,13 @@ void Text::print_frequency_table_numer() const {
   map<string, int> word_count{this->count_words()};
 
   // change the map to a vector of pairs to allow sorting
-  vector<pair<string, int>> word_sorted(word_count.begin(), word_count.end());
+  vector<pair<string, int>> word_sorted{word_count.begin(), word_count.end()};
   std::sort(word_sorted.begin(), word_sorted.end(),
             [](const auto &pair1, const auto &pair2) {
               return pair1.second > pair2.second;
             });
 
-  // used to align words correctly in output
-  const unsigned long max_word_length{this->get_max_word_length()};
-
-  cout << setfill(' ');
-  for_each(word_sorted.begin(), word_sorted.end(),
-           [max_word_length](const std::pair<string, int> word) {
-             cout << left << setw(max_word_length + 1) << word.first
-                  << word.second << "\n";
-           });
+  print_words(word_sorted);
 }
 
 void Text::compute_argument(const string &argument) {
